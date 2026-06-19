@@ -30,6 +30,19 @@ function dataBR(iso: string) {
   return iso.split('-').reverse().join('/');
 }
 
+function linkGoogleAgenda(ag: any): string {
+  const dtStr  = ag.data.replace(/-/g, '');
+  const inicio = ag.turno?.includes('Manhã') ? '080000' : '133000';
+  const fim    = ag.turno?.includes('Manhã') ? '120000' : '180000';
+  const texto  = encodeURIComponent(`${ag.setor} — ${ag.pet_nome}`);
+  const datas  = `${dtStr}T${inicio}/${dtStr}T${fim}`;
+  const detalhes = encodeURIComponent(
+    `Tutor: ${ag.tutor_nome}\nTelefone: ${ag.tutor_telefone}\nTurno: ${ag.turno}`
+  );
+  const local = encodeURIComponent('Cia Pet — R. Rio Grande do Sul, Jardim Cruzeiro, Lençóis Paulista/SP');
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${texto}&dates=${datas}&details=${detalhes}&location=${local}&ctz=America/Sao_Paulo`;
+}
+
 serve(async (req) => {
   try {
     const payload = await req.json();
@@ -39,8 +52,9 @@ serve(async (req) => {
       return new Response('Sem dados', { status: 400 });
     }
 
-    const icsContent = gerarICS(ag);
-    const icsBase64  = btoa(unescape(encodeURIComponent(icsContent)));
+    const icsContent   = gerarICS(ag);
+    const icsBase64    = btoa(unescape(encodeURIComponent(icsContent)));
+    const googleLink   = linkGoogleAgenda(ag);
 
     const emailBody = {
       from: 'Cia Pet <onboarding@resend.dev>',
@@ -60,8 +74,25 @@ serve(async (req) => {
               <tr><td style="padding:8px 0;color:#5f6f69;">Data</td><td style="font-weight:700;color:#2a9d78;">${dataBR(ag.data)}</td></tr>
               <tr><td style="padding:8px 0;color:#5f6f69;">Turno</td><td style="color:#1a2e27;">${ag.turno}</td></tr>
             </table>
-            <div style="margin-top:20px;padding:14px;background:#e3f3eb;border-radius:10px;color:#1c6f54;font-size:.9rem;">
-              📎 O arquivo <strong>.ics</strong> em anexo permite adicionar este agendamento diretamente ao seu calendário (Google, Outlook, etc.)
+
+            <!-- Botão Google Agenda -->
+            <div style="margin-top:24px;text-align:center;">
+              <a href="${googleLink}" target="_blank" style="
+                display:inline-block;
+                background:#4285F4;
+                color:#fff;
+                text-decoration:none;
+                padding:12px 24px;
+                border-radius:10px;
+                font-weight:700;
+                font-size:.95rem;
+              ">
+                📅 Adicionar ao Google Agenda
+              </a>
+            </div>
+
+            <div style="margin-top:16px;padding:14px;background:#e3f3eb;border-radius:10px;color:#1c6f54;font-size:.85rem;">
+              📎 O arquivo <strong>.ics</strong> em anexo também permite adicionar ao Outlook ou Apple Calendar.
             </div>
           </div>
           <div style="padding:16px 28px;background:#f4f8f6;font-size:.8rem;color:#5f6f69;text-align:center;">
