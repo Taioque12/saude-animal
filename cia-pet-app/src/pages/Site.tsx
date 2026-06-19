@@ -296,7 +296,7 @@ export default function Site() {
             </div>
           </div>
           <div className="sp-rodape-base">
-            <span>CNPJ: 00.000.000/0001-00 · Cia Pet Clínica Veterinária Ltda.</span>
+            <span>CNPJ: 12.624.267/0001-39 · Cia Pet Clínica Veterinária Ltda.</span>
             <span>© 2026 Cia Pet — Todos os direitos reservados.</span>
           </div>
         </div>
