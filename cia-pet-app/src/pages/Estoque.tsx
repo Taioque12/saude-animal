@@ -19,15 +19,15 @@ const CAT_EMOJI: Record<string, string> = {
 const VAZIO = { nome: '', categoria: '', unidade: '', quantidade: '0', minimo: '0', validade: '', observacao: '' };
 
 const inputStyle: React.CSSProperties = {
-  width: '100%', padding: '11px 14px', borderRadius: 10, border: '1.5px solid #e4ece8',
-  fontSize: '.95rem', color: '#1a2e27', background: '#fff', boxSizing: 'border-box',
+  width: '100%', padding: '11px 14px', borderRadius: 10, border: '1.5px solid var(--sa-border)',
+  fontSize: '.95rem', color: 'var(--sa-text)', background: 'var(--sa-surface)', boxSizing: 'border-box',
   fontFamily: 'inherit', outline: 'none',
 };
 
 function Campo({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <label style={{ display: 'block', fontSize: '.82rem', fontWeight: 600, color: '#1a2e27', marginBottom: 6 }}>{label}</label>
+      <label style={{ display: 'block', fontSize: '.82rem', fontWeight: 600, color: 'var(--sa-text)', marginBottom: 6 }}>{label}</label>
       {children}
     </div>
   );
@@ -47,17 +47,17 @@ function situacao(i: Insumo): 'vencido' | 'vencendo' | 'baixo' | 'ok' {
 }
 
 const STATUS_BADGE: Record<string, { bg: string; cor: string; label: (i: Insumo) => string }> = {
-  vencido:  { bg: '#fdecea', cor: '#d64545', label: () => '❌ Vencido' },
-  vencendo: { bg: '#fff8ec', cor: '#e07b39', label: (i) => `⚠️ Vence em ${diasParaVencer(i.validade)}d` },
-  baixo:    { bg: '#fff8ec', cor: '#e07b39', label: () => '📉 Estoque baixo' },
-  ok:       { bg: '#e3f3eb', cor: '#2a9d78', label: () => '✅ OK' },
+  vencido:  { bg: 'var(--sa-danger-soft)', cor: '#d64545', label: () => '❌ Vencido' },
+  vencendo: { bg: 'var(--sa-warning-soft)', cor: 'var(--sa-warning)', label: (i) => `⚠️ Vence em ${diasParaVencer(i.validade)}d` },
+  baixo:    { bg: 'var(--sa-warning-soft)', cor: 'var(--sa-warning)', label: () => '📉 Estoque baixo' },
+  ok:       { bg: 'var(--sa-primary-soft)', cor: 'var(--sa-primary)', label: () => '✅ OK' },
 };
 
 function Stat({ label, valor, cor }: { label: string; valor: string | number; cor: string }) {
   return (
-    <div style={{ flex: 1, minWidth: 120, background: '#fff', borderRadius: 14, padding: '16px 20px', boxShadow: '0 2px 12px rgba(0,0,0,.06)', textAlign: 'center' }}>
+    <div style={{ flex: 1, minWidth: 120, background: 'var(--sa-surface)', borderRadius: 14, padding: '16px 20px', boxShadow: '0 2px 12px rgba(0,0,0,.06)', textAlign: 'center' }}>
       <div style={{ fontSize: '1.6rem', fontWeight: 800, color: cor }}>{valor}</div>
-      <div style={{ fontSize: '.78rem', color: '#6b7f79', marginTop: 4 }}>{label}</div>
+      <div style={{ fontSize: '.78rem', color: 'var(--sa-text-muted)', marginTop: 4 }}>{label}</div>
     </div>
   );
 }
@@ -131,15 +131,15 @@ export default function Estoque() {
           <IonTitle>Estoque / Insumos</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent style={{ '--background': '#f4f7f5' }}>
+      <IonContent style={{ '--background': 'var(--sa-bg)' }}>
         <div style={{ maxWidth: 960, margin: '0 auto', padding: '20px 16px' }}>
 
           {/* Cards resumo */}
           <div style={{ display: 'flex', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
-            <Stat label="Total de itens" valor={insumos.length} cor="#2a9d78" />
-            <Stat label="Estoque baixo" valor={totalBaixo} cor={totalBaixo > 0 ? '#e07b39' : '#6b7f79'} />
-            <Stat label="Validade / Vencido" valor={totalAlerta} cor={totalAlerta > 0 ? '#d64545' : '#6b7f79'} />
-            <Stat label="Categorias" valor={totalCats} cor="#5b6af5" />
+            <Stat label="Total de itens" valor={insumos.length} cor="var(--sa-primary)" />
+            <Stat label="Estoque baixo" valor={totalBaixo} cor={totalBaixo > 0 ? 'var(--sa-warning)' : 'var(--sa-text-muted)'} />
+            <Stat label="Validade / Vencido" valor={totalAlerta} cor={totalAlerta > 0 ? '#d64545' : 'var(--sa-text-muted)'} />
+            <Stat label="Categorias" valor={totalCats} cor="var(--sa-info)" />
           </div>
 
           {/* Busca + botão */}
@@ -152,7 +152,7 @@ export default function Estoque() {
             />
             <button onClick={() => { setForm(VAZIO); setAberto(true); }} style={{
               padding: '11px 20px', borderRadius: 10, border: 'none', cursor: 'pointer',
-              background: '#2a9d78', color: '#fff', fontWeight: 700, fontSize: '.9rem',
+              background: 'var(--sa-primary)', color: '#fff', fontWeight: 700, fontSize: '.9rem',
               fontFamily: 'inherit', whiteSpace: 'nowrap',
             }}>+ Novo item</button>
           </div>
@@ -162,8 +162,8 @@ export default function Estoque() {
             {['', ...CATEGORIAS].map((c) => (
               <button key={c} onClick={() => setCatFiltro(c)} style={{
                 padding: '6px 14px', borderRadius: 20, border: 'none', cursor: 'pointer',
-                background: catFiltro === c ? '#2a9d78' : '#fff',
-                color: catFiltro === c ? '#fff' : '#5f6f69',
+                background: catFiltro === c ? 'var(--sa-primary)' : 'var(--sa-surface)',
+                color: catFiltro === c ? '#fff' : 'var(--sa-text-muted)',
                 fontWeight: catFiltro === c ? 700 : 400, fontSize: '.82rem',
                 boxShadow: '0 2px 8px rgba(0,0,0,.06)', fontFamily: 'inherit',
               }}>
@@ -176,7 +176,7 @@ export default function Estoque() {
           {carregando ? (
             <div style={{ textAlign: 'center', padding: 40 }}><IonSpinner /></div>
           ) : filtrados.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: 48, color: '#6b7f79' }}>
+            <div style={{ textAlign: 'center', padding: 48, color: 'var(--sa-text-muted)' }}>
               <div style={{ fontSize: 40, marginBottom: 12 }}>📦</div>
               <p style={{ margin: 0 }}>Nenhum insumo encontrado.</p>
             </div>
@@ -188,13 +188,13 @@ export default function Estoque() {
                 const pct = i.minimo > 0 ? Math.min(100, Math.round((i.quantidade / (i.minimo * 2)) * 100)) : 100;
                 return (
                   <div key={i.id} style={{
-                    background: '#fff', borderRadius: 14, padding: '16px 20px',
+                    background: 'var(--sa-surface)', borderRadius: 14, padding: '16px 20px',
                     boxShadow: '0 2px 12px rgba(0,0,0,.06)',
                     display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap',
                   }}>
                     {/* Ícone categoria */}
                     <div style={{
-                      width: 48, height: 48, borderRadius: 12, background: '#f0f4f2',
+                      width: 48, height: 48, borderRadius: 12, background: 'var(--sa-surface-2)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontSize: 22, flexShrink: 0,
                     }}>
@@ -203,18 +203,18 @@ export default function Estoque() {
 
                     {/* Info */}
                     <div style={{ flex: 1, minWidth: 180 }}>
-                      <div style={{ fontWeight: 700, color: '#1a2e27', fontSize: '.97rem', marginBottom: 2 }}>{i.nome}</div>
-                      <div style={{ color: '#6b7f79', fontSize: '.8rem' }}>{i.categoria}</div>
-                      {i.observacao && <div style={{ color: '#a0aea9', fontSize: '.75rem', marginTop: 2 }}>{i.observacao}</div>}
+                      <div style={{ fontWeight: 700, color: 'var(--sa-text)', fontSize: '.97rem', marginBottom: 2 }}>{i.nome}</div>
+                      <div style={{ color: 'var(--sa-text-muted)', fontSize: '.8rem' }}>{i.categoria}</div>
+                      {i.observacao && <div style={{ color: 'var(--sa-text-faint)', fontSize: '.75rem', marginTop: 2 }}>{i.observacao}</div>}
                       {/* Barra de estoque */}
                       <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <div style={{ flex: 1, height: 5, background: '#f0f4f2', borderRadius: 4, overflow: 'hidden' }}>
-                          <div style={{ width: `${pct}%`, height: '100%', background: sit === 'ok' ? '#2a9d78' : sit === 'baixo' ? '#e07b39' : '#d64545', borderRadius: 4, transition: 'width .3s' }} />
+                        <div style={{ flex: 1, height: 5, background: 'var(--sa-surface-2)', borderRadius: 4, overflow: 'hidden' }}>
+                          <div style={{ width: `${pct}%`, height: '100%', background: sit === 'ok' ? 'var(--sa-primary)' : sit === 'baixo' ? 'var(--sa-warning)' : '#d64545', borderRadius: 4, transition: 'width .3s' }} />
                         </div>
-                        <span style={{ fontSize: '.8rem', fontWeight: 700, color: '#1a2e27', whiteSpace: 'nowrap' }}>
-                          {i.quantidade} <span style={{ color: '#6b7f79', fontWeight: 400 }}>{i.unidade}</span>
+                        <span style={{ fontSize: '.8rem', fontWeight: 700, color: 'var(--sa-text)', whiteSpace: 'nowrap' }}>
+                          {i.quantidade} <span style={{ color: 'var(--sa-text-muted)', fontWeight: 400 }}>{i.unidade}</span>
                         </span>
-                        <span style={{ fontSize: '.75rem', color: '#6b7f79' }}>/ mín. {i.minimo}</span>
+                        <span style={{ fontSize: '.75rem', color: 'var(--sa-text-muted)' }}>/ mín. {i.minimo}</span>
                       </div>
                     </div>
 
@@ -225,10 +225,10 @@ export default function Estoque() {
 
                     {/* Ações */}
                     <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-                      <button onClick={() => movimentar(i, 'entrada')} title="Entrada" style={{ padding: '7px 12px', borderRadius: 8, border: '1.5px solid #e3f3eb', background: '#e3f3eb', color: '#2a9d78', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.85rem', fontWeight: 700 }}>＋</button>
-                      <button onClick={() => movimentar(i, 'saida')} title="Saída" style={{ padding: '7px 12px', borderRadius: 8, border: '1.5px solid #fff8ec', background: '#fff8ec', color: '#e07b39', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.85rem', fontWeight: 700 }}>－</button>
-                      <button onClick={() => { setForm({ id: i.id, nome: i.nome, categoria: i.categoria, unidade: i.unidade, quantidade: String(i.quantidade), minimo: String(i.minimo), validade: i.validade ?? '', observacao: i.observacao ?? '' }); setAberto(true); }} style={{ padding: '7px 12px', borderRadius: 8, border: '1.5px solid #e4ece8', background: '#fff', color: '#1a2e27', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.82rem' }}>✏️</button>
-                      <button onClick={() => excluir(i)} style={{ padding: '7px 12px', borderRadius: 8, border: '1.5px solid #fdecea', background: '#fdecea', color: '#d64545', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.82rem' }}>🗑️</button>
+                      <button onClick={() => movimentar(i, 'entrada')} title="Entrada" style={{ padding: '7px 12px', borderRadius: 8, border: '1.5px solid var(--sa-primary-soft)', background: 'var(--sa-primary-soft)', color: 'var(--sa-primary)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.85rem', fontWeight: 700 }}>＋</button>
+                      <button onClick={() => movimentar(i, 'saida')} title="Saída" style={{ padding: '7px 12px', borderRadius: 8, border: '1.5px solid var(--sa-warning-soft)', background: 'var(--sa-warning-soft)', color: 'var(--sa-warning)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.85rem', fontWeight: 700 }}>－</button>
+                      <button onClick={() => { setForm({ id: i.id, nome: i.nome, categoria: i.categoria, unidade: i.unidade, quantidade: String(i.quantidade), minimo: String(i.minimo), validade: i.validade ?? '', observacao: i.observacao ?? '' }); setAberto(true); }} style={{ padding: '7px 12px', borderRadius: 8, border: '1.5px solid var(--sa-border)', background: 'var(--sa-surface)', color: 'var(--sa-text)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.82rem' }}>✏️</button>
+                      <button onClick={() => excluir(i)} style={{ padding: '7px 12px', borderRadius: 8, border: '1.5px solid var(--sa-danger-soft)', background: 'var(--sa-danger-soft)', color: '#d64545', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.82rem' }}>🗑️</button>
                     </div>
                   </div>
                 );
@@ -239,8 +239,8 @@ export default function Estoque() {
 
         {/* Modal */}
         <IonModal isOpen={aberto} onDidDismiss={() => setAberto(false)}>
-          <div style={{ height: '100%', background: '#f4f7f5', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ background: 'linear-gradient(135deg,#1c6f54,#2a9d78)', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ height: '100%', background: 'var(--sa-bg)', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ background: 'linear-gradient(135deg,var(--sa-primary-dark),var(--sa-primary))', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <h2 style={{ color: '#fff', margin: 0, fontSize: '1.1rem', fontWeight: 800 }}>{form.id ? '✏️ Editar insumo' : '📦 Novo insumo'}</h2>
               <button onClick={() => setAberto(false)} style={{ background: 'rgba(255,255,255,.2)', border: 'none', borderRadius: 8, color: '#fff', padding: '6px 12px', cursor: 'pointer', fontSize: '1rem' }}>✕</button>
             </div>
@@ -260,7 +260,7 @@ export default function Estoque() {
                 </div>
                 <Campo label="Validade"><input style={inputStyle} type="date" value={form.validade} onChange={e => set('validade', e.target.value)} /></Campo>
                 <Campo label="Observação"><textarea style={{ ...inputStyle, minHeight: 68, resize: 'vertical' }} value={form.observacao} onChange={e => set('observacao', e.target.value)} placeholder="Ex.: Manter refrigerado" /></Campo>
-                <button type="submit" disabled={salvando} style={{ width: '100%', padding: '13px', borderRadius: 10, border: 'none', background: salvando ? '#7fcfb4' : '#2a9d78', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: salvando ? 'not-allowed' : 'pointer', fontFamily: 'inherit', marginTop: 8 }}>
+                <button type="submit" disabled={salvando} style={{ width: '100%', padding: '13px', borderRadius: 10, border: 'none', background: salvando ? '#80cfc6' : 'var(--sa-primary)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: salvando ? 'not-allowed' : 'pointer', fontFamily: 'inherit', marginTop: 8 }}>
                   {salvando ? 'Salvando...' : 'Salvar insumo'}
                 </button>
               </form>

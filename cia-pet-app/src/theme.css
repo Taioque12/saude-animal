@@ -1,25 +1,102 @@
 /* =============================================================
-   Cia Pet — Tema (verde + pêssego pastel) sobre o Ionic
+   Saúde Animal — Clínica Veterinária
+   Tema (teal + laranja) sobre o Ionic, com modo claro e escuro.
+   As cores ficam em variáveis (--sa-*) para o dark mode funcionar
+   em todas as páginas. O modo escuro é ativado pela classe .dark
+   no <html> (ver src/theme.ts).
    ============================================================= */
+
 :root {
-  /* Cor primária — verde */
-  --ion-color-primary: #2a9d78;
-  --ion-color-primary-rgb: 42, 157, 120;
+  /* ---- MARCA ---- */
+  --sa-primary: #13a89e;        /* teal (lado cachorro / "Saúde") */
+  --sa-primary-dark: #0d8d84;
+  --sa-primary-soft: #e2f4f1;   /* fundo de destaque suave */
+  --sa-accent: #e8743b;         /* laranja (lado gato / "Animal") */
+  --sa-accent-dark: #d65f27;
+  --sa-accent-soft: #fdeee6;
+
+  /* ---- SUPERFÍCIES / TEXTO (claro) ---- */
+  --sa-bg: #f4f7f6;             /* fundo das páginas */
+  --sa-surface: #ffffff;        /* cards */
+  --sa-surface-2: #eef3f1;      /* chips / inputs desabilitados */
+  --sa-text: #14302b;           /* texto principal */
+  --sa-text-muted: #69807a;     /* texto secundário */
+  --sa-text-faint: #9bb0aa;     /* texto terciário */
+  --sa-border: #e2ebe8;         /* bordas */
+  --sa-shadow: rgba(0, 0, 0, .07);
+
+  /* ---- MENU LATERAL (escuro nos dois modos) ---- */
+  --sa-sidebar: #0f2925;
+
+  /* ---- SEMÂNTICAS ---- */
+  --sa-danger: #d64545;
+  --sa-danger-soft: #fdecea;
+  --sa-warning: #e07b39;
+  --sa-warning-soft: #fff8ec;
+  --sa-info: #5b6af5;
+  --sa-info-soft: #eef0ff;
+
+  /* ---- GRADIENTE DE MARCA (cabeçalhos de modal) ---- */
+  --sa-grad: linear-gradient(135deg, #0d8d84, #13a89e);
+
+  /* ---- IONIC ---- */
+  --ion-color-primary: #13a89e;
+  --ion-color-primary-rgb: 19, 168, 158;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #258a6a;
-  --ion-color-primary-tint: #3fa786;
+  --ion-color-primary-shade: #11938a;
+  --ion-color-primary-tint: #2bb1a8;
 
-  /* Cor secundária — pêssego pastel */
-  --ion-color-secondary: #ffd9bd;
-  --ion-color-secondary-rgb: 255, 217, 189;
-  --ion-color-secondary-contrast: #8a4f1d;
-  --ion-color-secondary-contrast-rgb: 138, 79, 29;
-  --ion-color-secondary-shade: #e0bfa6;
-  --ion-color-secondary-tint: #ffddc4;
+  --ion-color-secondary: #e8743b;
+  --ion-color-secondary-rgb: 232, 116, 59;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #cc6634;
+  --ion-color-secondary-tint: #ea824f;
 
-  --ion-background-color: #f4f8f6;
-  --ion-background-color-rgb: 244, 248, 246;
+  --ion-background-color: #f4f7f6;
+  --ion-background-color-rgb: 244, 247, 246;
+}
+
+/* ============ MODO ESCURO ============ */
+.dark {
+  --sa-primary: #1bbcb0;
+  --sa-primary-dark: #15a99e;
+  --sa-primary-soft: #123b37;
+  --sa-accent: #f0834c;
+  --sa-accent-dark: #e06f37;
+  --sa-accent-soft: #3a2418;
+
+  --sa-bg: #0f1715;
+  --sa-surface: #18221f;
+  --sa-surface-2: #20302c;
+  --sa-text: #e9f1ee;
+  --sa-text-muted: #9fb4ae;
+  --sa-text-faint: #708680;
+  --sa-border: #2a3a35;
+  --sa-shadow: rgba(0, 0, 0, .45);
+
+  --sa-sidebar: #0a1614;
+
+  --sa-danger-soft: #3a1f1d;
+  --sa-warning-soft: #3a2f1c;
+  --sa-info-soft: #1e2147;
+
+  --sa-grad: linear-gradient(135deg, #0d8d84, #15a99e);
+
+  --ion-color-primary: #1bbcb0;
+  --ion-color-primary-rgb: 27, 188, 176;
+  --ion-color-primary-shade: #18a59b;
+  --ion-color-primary-tint: #32c3b8;
+
+  --ion-background-color: #0f1715;
+  --ion-background-color-rgb: 15, 23, 21;
+  --ion-text-color: #e9f1ee;
+  --ion-text-color-rgb: 233, 241, 238;
 }
 
 .marca-titulo { font-weight: 700; letter-spacing: .2px; }
+
+/* Transição suave ao alternar tema */
+.dark, :root { }
+body { transition: background-color .2s ease; }

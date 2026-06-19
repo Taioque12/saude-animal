@@ -33,14 +33,14 @@ function idade(nascimento: string | null): string {
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '11px 14px', borderRadius: 10,
-  border: '1.5px solid #e4ece8', fontSize: '.95rem', color: '#1a2e27',
-  background: '#fff', boxSizing: 'border-box', fontFamily: 'inherit', outline: 'none',
+  border: '1.5px solid var(--sa-border)', fontSize: '.95rem', color: 'var(--sa-text)',
+  background: 'var(--sa-surface)', boxSizing: 'border-box', fontFamily: 'inherit', outline: 'none',
 };
 
 function Campo({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <label style={{ display: 'block', fontSize: '.82rem', fontWeight: 600, color: '#1a2e27', marginBottom: 6 }}>{label}</label>
+      <label style={{ display: 'block', fontSize: '.82rem', fontWeight: 600, color: 'var(--sa-text)', marginBottom: 6 }}>{label}</label>
       {children}
     </div>
   );
@@ -109,7 +109,7 @@ export default function Pacientes() {
           <IonTitle>Pacientes</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent style={{ '--background': '#f4f7f5' }}>
+      <IonContent style={{ '--background': 'var(--sa-bg)' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', padding: '20px 16px' }}>
 
           {/* Busca + botão */}
@@ -122,7 +122,7 @@ export default function Pacientes() {
             />
             <button onClick={() => { setForm(VAZIO); setAberto(true); }} style={{
               padding: '11px 20px', borderRadius: 10, border: 'none', cursor: 'pointer',
-              background: '#2a9d78', color: '#fff', fontWeight: 700, fontSize: '.9rem',
+              background: 'var(--sa-primary)', color: '#fff', fontWeight: 700, fontSize: '.9rem',
               fontFamily: 'inherit', whiteSpace: 'nowrap',
             }}>
               + Novo paciente
@@ -133,7 +133,7 @@ export default function Pacientes() {
           {carregando ? (
             <div style={{ textAlign: 'center', padding: 40 }}><IonSpinner /></div>
           ) : filtrados.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: 48, color: '#6b7f79' }}>
+            <div style={{ textAlign: 'center', padding: 48, color: 'var(--sa-text-muted)' }}>
               <div style={{ fontSize: 40, marginBottom: 12 }}>🐾</div>
               <p style={{ margin: 0 }}>Nenhum paciente encontrado.</p>
             </div>
@@ -141,13 +141,13 @@ export default function Pacientes() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {filtrados.map((p) => (
                 <div key={p.id} style={{
-                  background: '#fff', borderRadius: 14, padding: '16px 20px',
+                  background: 'var(--sa-surface)', borderRadius: 14, padding: '16px 20px',
                   boxShadow: '0 2px 12px rgba(0,0,0,.06)',
                   display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap',
                 }}>
                   {/* Avatar espécie */}
                   <div style={{
-                    width: 48, height: 48, borderRadius: 12, background: '#e3f3eb',
+                    width: 48, height: 48, borderRadius: 12, background: 'var(--sa-primary-soft)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: 24, flexShrink: 0,
                   }}>
@@ -156,20 +156,20 @@ export default function Pacientes() {
 
                   {/* Info */}
                   <div style={{ flex: 1, minWidth: 160 }}>
-                    <div style={{ fontWeight: 700, color: '#1a2e27', fontSize: '.97rem', marginBottom: 3 }}>
+                    <div style={{ fontWeight: 700, color: 'var(--sa-text)', fontSize: '.97rem', marginBottom: 3 }}>
                       {p.nome}
                       {p.porte && (
                         <span style={{
                           marginLeft: 8, fontSize: '.72rem', fontWeight: 600,
-                          background: '#f0f4f2', color: '#5f6f69',
+                          background: 'var(--sa-surface-2)', color: 'var(--sa-text-muted)',
                           borderRadius: 6, padding: '2px 8px',
                         }}>{p.porte}</span>
                       )}
                     </div>
-                    <div style={{ color: '#6b7f79', fontSize: '.82rem' }}>
+                    <div style={{ color: 'var(--sa-text-muted)', fontSize: '.82rem' }}>
                       {p.especie}{p.raca ? ` · ${p.raca}` : ''} · {idade(p.nascimento)}
                     </div>
-                    <div style={{ color: '#6b7f79', fontSize: '.78rem', marginTop: 2 }}>
+                    <div style={{ color: 'var(--sa-text-muted)', fontSize: '.78rem', marginTop: 2 }}>
                       👤 {p.tutores?.nome ?? '—'}
                     </div>
                   </div>
@@ -177,7 +177,7 @@ export default function Pacientes() {
                   {/* Alertas */}
                   {p.alergias && (
                     <span style={{
-                      background: '#fff8ec', color: '#e07b39', border: '1px solid #fdd9b5',
+                      background: 'var(--sa-warning-soft)', color: 'var(--sa-warning)', border: '1px solid #fdd9b5',
                       borderRadius: 8, padding: '4px 10px', fontSize: '.75rem', fontWeight: 600,
                     }}>⚠️ Alergia</span>
                   )}
@@ -185,18 +185,18 @@ export default function Pacientes() {
                   {/* Ações */}
                   <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
                     <button onClick={() => history.push(`/pacientes/${p.id}/prontuarios`)} style={{
-                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid #eef0ff',
-                      background: '#eef0ff', color: '#5b6af5', cursor: 'pointer',
+                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid var(--sa-info-soft)',
+                      background: 'var(--sa-info-soft)', color: 'var(--sa-info)', cursor: 'pointer',
                       fontSize: '.82rem', fontFamily: 'inherit', fontWeight: 600,
                     }}>📋 Prontuários</button>
                     <button onClick={() => { setForm(p); setAberto(true); }} style={{
-                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid #e4ece8',
-                      background: '#fff', color: '#1a2e27', cursor: 'pointer',
+                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid var(--sa-border)',
+                      background: 'var(--sa-surface)', color: 'var(--sa-text)', cursor: 'pointer',
                       fontSize: '.82rem', fontFamily: 'inherit',
                     }}>✏️</button>
                     <button onClick={() => excluir(p)} style={{
-                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid #fdecea',
-                      background: '#fdecea', color: '#d64545', cursor: 'pointer',
+                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid var(--sa-danger-soft)',
+                      background: 'var(--sa-danger-soft)', color: '#d64545', cursor: 'pointer',
                       fontSize: '.82rem', fontFamily: 'inherit',
                     }}>🗑️</button>
                   </div>
@@ -208,8 +208,8 @@ export default function Pacientes() {
 
         {/* Modal */}
         <IonModal isOpen={aberto} onDidDismiss={() => setAberto(false)}>
-          <div style={{ height: '100%', background: '#f4f7f5', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ background: 'linear-gradient(135deg,#1c6f54,#2a9d78)', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ height: '100%', background: 'var(--sa-bg)', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ background: 'linear-gradient(135deg,var(--sa-primary-dark),var(--sa-primary))', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <h2 style={{ color: '#fff', margin: 0, fontSize: '1.1rem', fontWeight: 800 }}>
                 {form.id ? '✏️ Editar paciente' : '🐾 Novo paciente'}
               </h2>
@@ -252,7 +252,7 @@ export default function Pacientes() {
                 </Campo>
                 <button type="submit" disabled={salvando} style={{
                   width: '100%', padding: '13px', borderRadius: 10, border: 'none',
-                  background: salvando ? '#7fcfb4' : '#2a9d78', color: '#fff',
+                  background: salvando ? '#80cfc6' : 'var(--sa-primary)', color: '#fff',
                   fontWeight: 700, fontSize: '1rem', cursor: salvando ? 'not-allowed' : 'pointer',
                   fontFamily: 'inherit', marginTop: 8,
                 }}>

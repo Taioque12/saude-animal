@@ -1,18 +1,18 @@
 /* =============================================================
-   Cia Pet — Estilos do site público
+   Saúde Animal — Estilos do site público
    ============================================================= */
 .sp-root {
-  --verde:       #2a9d78;
-  --verde-esc:   #1c6f54;
-  --verde-claro: #e3f3eb;
-  --laranja:     #f3a261;
-  --pessego:     #ffd9bd;
-  --pessego-bg:  #fff4ea;
-  --laranja-txt: #8a4f1d;
-  --tinta:       #20302a;
+  --verde:       #13a89e;   /* teal (cor primária da marca) */
+  --verde-esc:   #0d8d84;
+  --verde-claro: #e2f4f1;
+  --laranja:     #e8743b;   /* laranja da marca */
+  --pessego:     #f6c9ad;
+  --pessego-bg:  #fdeee6;
+  --laranja-txt: #9a4f22;
+  --tinta:       #14302b;
   --cinza:       #5f6f69;
-  --cinza-claro: #f4f8f6;
-  --borda:       #e4ece8;
+  --cinza-claro: #f4f7f6;
+  --borda:       #e2ebe8;
   --branco:      #ffffff;
   --raio:        14px;
   --sombra:      0 10px 30px rgba(20,60,50,.08);

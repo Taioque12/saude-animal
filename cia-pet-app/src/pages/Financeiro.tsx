@@ -38,15 +38,15 @@ function notaVencida(n: Nota) {
 }
 
 const inputStyle: React.CSSProperties = {
-  width: '100%', padding: '11px 14px', borderRadius: 10, border: '1.5px solid #e4ece8',
-  fontSize: '.95rem', color: '#1a2e27', background: '#fff', boxSizing: 'border-box',
+  width: '100%', padding: '11px 14px', borderRadius: 10, border: '1.5px solid var(--sa-border)',
+  fontSize: '.95rem', color: 'var(--sa-text)', background: 'var(--sa-surface)', boxSizing: 'border-box',
   fontFamily: 'inherit', outline: 'none',
 };
 
 function Campo({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <label style={{ display: 'block', fontSize: '.82rem', fontWeight: 600, color: '#1a2e27', marginBottom: 6 }}>{label}</label>
+      <label style={{ display: 'block', fontSize: '.82rem', fontWeight: 600, color: 'var(--sa-text)', marginBottom: 6 }}>{label}</label>
       {children}
     </div>
   );
@@ -54,10 +54,10 @@ function Campo({ label, children }: { label: string; children: React.ReactNode }
 
 function Stat({ label, valor, cor, sub }: { label: string; valor: string; cor: string; sub?: string }) {
   return (
-    <div style={{ flex: 1, minWidth: 140, background: '#fff', borderRadius: 14, padding: '16px 18px', boxShadow: '0 2px 12px rgba(0,0,0,.06)' }}>
+    <div style={{ flex: 1, minWidth: 140, background: 'var(--sa-surface)', borderRadius: 14, padding: '16px 18px', boxShadow: '0 2px 12px rgba(0,0,0,.06)' }}>
       <div style={{ fontSize: '1.1rem', fontWeight: 800, color: cor, marginBottom: 2 }}>{valor}</div>
-      <div style={{ fontSize: '.78rem', color: '#6b7f79' }}>{label}</div>
-      {sub && <div style={{ fontSize: '.72rem', color: '#a0aea9', marginTop: 2 }}>{sub}</div>}
+      <div style={{ fontSize: '.78rem', color: 'var(--sa-text-muted)' }}>{label}</div>
+      {sub && <div style={{ fontSize: '.72rem', color: 'var(--sa-text-faint)', marginTop: 2 }}>{sub}</div>}
     </div>
   );
 }
@@ -155,7 +155,7 @@ export default function Financeiro() {
     const nBase = setor ? notas.filter((n) => n.setor === setor) : notas;
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([
-      ['Relatório Financeiro — Cia Pet'], ['Setor', label], ['Gerado em', new Date().toLocaleString('pt-BR')], [],
+      ['Relatório Financeiro — Saúde Animal'], ['Setor', label], ['Gerado em', new Date().toLocaleString('pt-BR')], [],
       ['FLUXO DE CAIXA'], ['Entradas pagas', totalE], ['Saídas pagas', totalS], ['Saldo', totalE - totalS], [],
       ['NOTAS FISCAIS'], ['A receber', aReceber], ['A pagar', aPagar], ['Vencidas', vencidas],
     ]), 'Resumo');
@@ -170,10 +170,10 @@ export default function Financeiro() {
     XLSX.writeFile(wb, `Financeiro_${label.replace(/[^\wÀ-ÿ]+/g, '_')}_${hoje()}.xlsx`);
   }
 
-  const pill = (label: string, ativo: boolean, onClick: () => void, cor = '#2a9d78') => (
+  const pill = (label: string, ativo: boolean, onClick: () => void, cor = 'var(--sa-primary)') => (
     <button onClick={onClick} style={{
       padding: '7px 16px', borderRadius: 20, border: 'none', cursor: 'pointer',
-      background: ativo ? cor : '#fff', color: ativo ? '#fff' : '#5f6f69',
+      background: ativo ? cor : 'var(--sa-surface)', color: ativo ? '#fff' : 'var(--sa-text-muted)',
       fontWeight: ativo ? 700 : 400, fontSize: '.85rem', fontFamily: 'inherit',
       boxShadow: '0 2px 8px rgba(0,0,0,.06)',
     }}>{label}</button>
@@ -193,7 +193,7 @@ export default function Financeiro() {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent style={{ '--background': '#f4f7f5' }}>
+      <IonContent style={{ '--background': 'var(--sa-bg)' }}>
         <div style={{ maxWidth: 960, margin: '0 auto', padding: '20px 16px' }}>
 
           {/* Abas */}
@@ -204,23 +204,23 @@ export default function Financeiro() {
 
           {/* Filtro setor */}
           <div style={{ display: 'flex', gap: 6, marginBottom: 16, flexWrap: 'wrap' }}>
-            {['', ...SETORES].map((s) => pill(s || 'Consolidado', setor === s, () => setSetor(s), '#1a2e27'))}
+            {['', ...SETORES].map((s) => pill(s || 'Consolidado', setor === s, () => setSetor(s), 'var(--sa-text)'))}
           </div>
 
           {/* Cards resumo */}
           {aba === 'caixa' ? (
             <div style={{ display: 'flex', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
-              <Stat label="Saldo total" valor={moeda(totalE - totalS)} cor={(totalE - totalS) >= 0 ? '#2a9d78' : '#d64545'} />
-              <Stat label="Entradas do mês" valor={moeda(mesE)} cor="#2a9d78" />
+              <Stat label="Saldo total" valor={moeda(totalE - totalS)} cor={(totalE - totalS) >= 0 ? 'var(--sa-primary)' : '#d64545'} />
+              <Stat label="Entradas do mês" valor={moeda(mesE)} cor="var(--sa-primary)" />
               <Stat label="Saídas do mês" valor={moeda(mesS)} cor="#d64545" />
-              <Stat label="Resultado do mês" valor={moeda(mesE - mesS)} cor={(mesE - mesS) >= 0 ? '#2a9d78' : '#d64545'} sub={(mesE - mesS) >= 0 ? 'Positivo' : 'Negativo'} />
+              <Stat label="Resultado do mês" valor={moeda(mesE - mesS)} cor={(mesE - mesS) >= 0 ? 'var(--sa-primary)' : '#d64545'} sub={(mesE - mesS) >= 0 ? 'Positivo' : 'Negativo'} />
             </div>
           ) : (
             <div style={{ display: 'flex', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
-              <Stat label="A receber" valor={moeda(aReceber)} cor="#2a9d78" />
+              <Stat label="A receber" valor={moeda(aReceber)} cor="var(--sa-primary)" />
               <Stat label="A pagar" valor={moeda(aPagar)} cor="#d64545" />
-              <Stat label="Vencidas" valor={String(vencidas)} cor={vencidas > 0 ? '#d64545' : '#6b7f79'} />
-              <Stat label="Total notas" valor={String(baseN.length)} cor="#5b6af5" />
+              <Stat label="Vencidas" valor={String(vencidas)} cor={vencidas > 0 ? '#d64545' : 'var(--sa-text-muted)'} />
+              <Stat label="Total notas" valor={String(baseN.length)} cor="var(--sa-info)" />
             </div>
           )}
 
@@ -240,11 +240,11 @@ export default function Financeiro() {
             </select>
             {aba === 'caixa' ? (
               <>
-                <button onClick={() => { setFormCaixa({ ...VAZIO_CAIXA, tipo: 'Entrada', setor, data: hoje() }); setAbrirCaixa(true); }} style={{ padding: '11px 16px', borderRadius: 10, border: 'none', background: '#2a9d78', color: '#fff', cursor: 'pointer', fontWeight: 700, fontFamily: 'inherit', fontSize: '.85rem' }}>+ Entrada</button>
+                <button onClick={() => { setFormCaixa({ ...VAZIO_CAIXA, tipo: 'Entrada', setor, data: hoje() }); setAbrirCaixa(true); }} style={{ padding: '11px 16px', borderRadius: 10, border: 'none', background: 'var(--sa-primary)', color: '#fff', cursor: 'pointer', fontWeight: 700, fontFamily: 'inherit', fontSize: '.85rem' }}>+ Entrada</button>
                 <button onClick={() => { setFormCaixa({ ...VAZIO_CAIXA, tipo: 'Saída', setor, data: hoje() }); setAbrirCaixa(true); }} style={{ padding: '11px 16px', borderRadius: 10, border: 'none', background: '#d64545', color: '#fff', cursor: 'pointer', fontWeight: 700, fontFamily: 'inherit', fontSize: '.85rem' }}>+ Saída</button>
               </>
             ) : (
-              <button onClick={() => { setFormNota({ ...VAZIO_NOTA, setor, data_emissao: hoje() }); setAbrirNota(true); }} style={{ padding: '11px 16px', borderRadius: 10, border: 'none', background: '#2a9d78', color: '#fff', cursor: 'pointer', fontWeight: 700, fontFamily: 'inherit', fontSize: '.85rem' }}>+ Nova NF</button>
+              <button onClick={() => { setFormNota({ ...VAZIO_NOTA, setor, data_emissao: hoje() }); setAbrirNota(true); }} style={{ padding: '11px 16px', borderRadius: 10, border: 'none', background: 'var(--sa-primary)', color: '#fff', cursor: 'pointer', fontWeight: 700, fontFamily: 'inherit', fontSize: '.85rem' }}>+ Nova NF</button>
             )}
           </div>
 
@@ -253,31 +253,31 @@ export default function Financeiro() {
             <div style={{ textAlign: 'center', padding: 40 }}><IonSpinner /></div>
           ) : aba === 'caixa' ? (
             lancsFilt.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: 48, color: '#6b7f79' }}><div style={{ fontSize: 40, marginBottom: 12 }}>💵</div><p>Nenhuma movimentação encontrada.</p></div>
+              <div style={{ textAlign: 'center', padding: 48, color: 'var(--sa-text-muted)' }}><div style={{ fontSize: 40, marginBottom: 12 }}>💵</div><p>Nenhuma movimentação encontrada.</p></div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {lancsFilt.map((m) => (
-                  <div key={m.id} style={{ background: '#fff', borderRadius: 14, padding: '14px 18px', boxShadow: '0 2px 12px rgba(0,0,0,.06)', display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+                  <div key={m.id} style={{ background: 'var(--sa-surface)', borderRadius: 14, padding: '14px 18px', boxShadow: '0 2px 12px rgba(0,0,0,.06)', display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
                     {/* Ícone tipo */}
-                    <div style={{ width: 40, height: 40, borderRadius: 10, background: m.tipo === 'Entrada' ? '#e3f3eb' : '#fdecea', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>
+                    <div style={{ width: 40, height: 40, borderRadius: 10, background: m.tipo === 'Entrada' ? 'var(--sa-primary-soft)' : 'var(--sa-danger-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>
                       {m.tipo === 'Entrada' ? '📈' : '📉'}
                     </div>
                     <div style={{ flex: 1, minWidth: 160 }}>
-                      <div style={{ fontWeight: 700, color: '#1a2e27', fontSize: '.95rem' }}>{m.descricao}</div>
-                      <div style={{ color: '#6b7f79', fontSize: '.78rem', marginTop: 2 }}>
+                      <div style={{ fontWeight: 700, color: 'var(--sa-text)', fontSize: '.95rem' }}>{m.descricao}</div>
+                      <div style={{ color: 'var(--sa-text-muted)', fontSize: '.78rem', marginTop: 2 }}>
                         {dataBR(m.data)} · {m.setor}{m.categoria ? ` · ${m.categoria}` : ''}{m.forma ? ` · ${m.forma}` : ''}
                       </div>
                     </div>
-                    <div style={{ fontWeight: 800, fontSize: '1rem', color: m.tipo === 'Entrada' ? '#2a9d78' : '#d64545', flexShrink: 0 }}>
+                    <div style={{ fontWeight: 800, fontSize: '1rem', color: m.tipo === 'Entrada' ? 'var(--sa-primary)' : '#d64545', flexShrink: 0 }}>
                       {m.tipo === 'Entrada' ? '+' : '−'} {moeda(Number(m.valor))}
                     </div>
-                    <span style={{ background: m.status === 'Pago' ? '#e3f3eb' : '#fff8ec', color: m.status === 'Pago' ? '#2a9d78' : '#e07b39', borderRadius: 8, padding: '4px 10px', fontSize: '.75rem', fontWeight: 700, flexShrink: 0 }}>
+                    <span style={{ background: m.status === 'Pago' ? 'var(--sa-primary-soft)' : 'var(--sa-warning-soft)', color: m.status === 'Pago' ? 'var(--sa-primary)' : 'var(--sa-warning)', borderRadius: 8, padding: '4px 10px', fontSize: '.75rem', fontWeight: 700, flexShrink: 0 }}>
                       {m.status}
                     </span>
                     <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-                      {m.status === 'Pendente' && <button onClick={async () => { await supabase.from('financeiro').update({ status: 'Pago' }).eq('id', m.id); carregar(); }} style={{ padding: '6px 12px', borderRadius: 8, border: 'none', background: '#e3f3eb', color: '#2a9d78', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.8rem', fontWeight: 700 }}>✓ Pagar</button>}
-                      <button onClick={() => { setFormCaixa({ id: m.id, setor: m.setor, tipo: m.tipo, categoria: m.categoria ?? '', descricao: m.descricao, valor: String(m.valor), data: m.data, forma: m.forma ?? '', status: m.status }); setAbrirCaixa(true); }} style={{ padding: '6px 10px', borderRadius: 8, border: '1.5px solid #e4ece8', background: '#fff', color: '#1a2e27', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.8rem' }}>✏️</button>
-                      <button onClick={async () => { if (window.confirm('Excluir?')) { await supabase.from('financeiro').delete().eq('id', m.id); carregar(); } }} style={{ padding: '6px 10px', borderRadius: 8, border: '1.5px solid #fdecea', background: '#fdecea', color: '#d64545', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.8rem' }}>🗑️</button>
+                      {m.status === 'Pendente' && <button onClick={async () => { await supabase.from('financeiro').update({ status: 'Pago' }).eq('id', m.id); carregar(); }} style={{ padding: '6px 12px', borderRadius: 8, border: 'none', background: 'var(--sa-primary-soft)', color: 'var(--sa-primary)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.8rem', fontWeight: 700 }}>✓ Pagar</button>}
+                      <button onClick={() => { setFormCaixa({ id: m.id, setor: m.setor, tipo: m.tipo, categoria: m.categoria ?? '', descricao: m.descricao, valor: String(m.valor), data: m.data, forma: m.forma ?? '', status: m.status }); setAbrirCaixa(true); }} style={{ padding: '6px 10px', borderRadius: 8, border: '1.5px solid var(--sa-border)', background: 'var(--sa-surface)', color: 'var(--sa-text)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.8rem' }}>✏️</button>
+                      <button onClick={async () => { if (window.confirm('Excluir?')) { await supabase.from('financeiro').delete().eq('id', m.id); carregar(); } }} style={{ padding: '6px 10px', borderRadius: 8, border: '1.5px solid var(--sa-danger-soft)', background: 'var(--sa-danger-soft)', color: '#d64545', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.8rem' }}>🗑️</button>
                     </div>
                   </div>
                 ))}
@@ -285,33 +285,33 @@ export default function Financeiro() {
             )
           ) : (
             notasFilt.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: 48, color: '#6b7f79' }}><div style={{ fontSize: 40, marginBottom: 12 }}>🧾</div><p>Nenhuma nota fiscal encontrada.</p></div>
+              <div style={{ textAlign: 'center', padding: 48, color: 'var(--sa-text-muted)' }}><div style={{ fontSize: 40, marginBottom: 12 }}>🧾</div><p>Nenhuma nota fiscal encontrada.</p></div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {notasFilt.map((n) => {
                   const vencida = notaVencida(n);
                   return (
-                    <div key={n.id} style={{ background: '#fff', borderRadius: 14, padding: '14px 18px', boxShadow: '0 2px 12px rgba(0,0,0,.06)', display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-                      <div style={{ width: 40, height: 40, borderRadius: 10, background: n.tipo === 'Entrada' ? '#e3f3eb' : '#fdecea', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>
+                    <div key={n.id} style={{ background: 'var(--sa-surface)', borderRadius: 14, padding: '14px 18px', boxShadow: '0 2px 12px rgba(0,0,0,.06)', display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+                      <div style={{ width: 40, height: 40, borderRadius: 10, background: n.tipo === 'Entrada' ? 'var(--sa-primary-soft)' : 'var(--sa-danger-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>
                         🧾
                       </div>
                       <div style={{ flex: 1, minWidth: 160 }}>
-                        <div style={{ fontWeight: 700, color: '#1a2e27', fontSize: '.93rem' }}>NF {n.numero} · {n.descricao}</div>
-                        <div style={{ color: '#6b7f79', fontSize: '.78rem', marginTop: 2 }}>
+                        <div style={{ fontWeight: 700, color: 'var(--sa-text)', fontSize: '.93rem' }}>NF {n.numero} · {n.descricao}</div>
+                        <div style={{ color: 'var(--sa-text-muted)', fontSize: '.78rem', marginTop: 2 }}>
                           {n.setor}{n.parte ? ` · ${n.parte}` : ''} · Emissão: {dataBR(n.data_emissao)} · Pagto: {dataBR(n.data_pagamento)}
                         </div>
-                        {n.boleto && <div style={{ color: '#a0aea9', fontSize: '.72rem', marginTop: 2 }}>Boleto: {n.boleto}</div>}
+                        {n.boleto && <div style={{ color: 'var(--sa-text-faint)', fontSize: '.72rem', marginTop: 2 }}>Boleto: {n.boleto}</div>}
                       </div>
-                      <div style={{ fontWeight: 800, fontSize: '1rem', color: n.tipo === 'Entrada' ? '#2a9d78' : '#d64545', flexShrink: 0 }}>
+                      <div style={{ fontWeight: 800, fontSize: '1rem', color: n.tipo === 'Entrada' ? 'var(--sa-primary)' : '#d64545', flexShrink: 0 }}>
                         {moeda(Number(n.valor))}
                       </div>
-                      <span style={{ background: vencida ? '#fdecea' : n.status === 'Pago' ? '#e3f3eb' : '#fff8ec', color: vencida ? '#d64545' : n.status === 'Pago' ? '#2a9d78' : '#e07b39', borderRadius: 8, padding: '4px 10px', fontSize: '.75rem', fontWeight: 700, flexShrink: 0 }}>
+                      <span style={{ background: vencida ? 'var(--sa-danger-soft)' : n.status === 'Pago' ? 'var(--sa-primary-soft)' : 'var(--sa-warning-soft)', color: vencida ? '#d64545' : n.status === 'Pago' ? 'var(--sa-primary)' : 'var(--sa-warning)', borderRadius: 8, padding: '4px 10px', fontSize: '.75rem', fontWeight: 700, flexShrink: 0 }}>
                         {vencida ? '⚠️ Vencida' : n.status === 'Pago' ? '✅ Pago' : '⏳ Pendente'}
                       </span>
                       <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-                        {n.status === 'Pendente' && <button onClick={() => darBaixa(n)} style={{ padding: '6px 12px', borderRadius: 8, border: 'none', background: '#e3f3eb', color: '#2a9d78', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.8rem', fontWeight: 700 }}>✓ Baixar</button>}
-                        <button onClick={() => { setFormNota({ id: n.id, setor: n.setor, numero: n.numero, tipo: n.tipo, descricao: n.descricao, parte: n.parte ?? '', valor: String(n.valor), data_emissao: n.data_emissao ?? '', data_pagamento: n.data_pagamento ?? '', boleto: n.boleto ?? '', status: n.status }); setAbrirNota(true); }} style={{ padding: '6px 10px', borderRadius: 8, border: '1.5px solid #e4ece8', background: '#fff', color: '#1a2e27', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.8rem' }}>✏️</button>
-                        <button onClick={async () => { if (window.confirm('Excluir?')) { await supabase.from('notas_fiscais').delete().eq('id', n.id); carregar(); } }} style={{ padding: '6px 10px', borderRadius: 8, border: '1.5px solid #fdecea', background: '#fdecea', color: '#d64545', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.8rem' }}>🗑️</button>
+                        {n.status === 'Pendente' && <button onClick={() => darBaixa(n)} style={{ padding: '6px 12px', borderRadius: 8, border: 'none', background: 'var(--sa-primary-soft)', color: 'var(--sa-primary)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.8rem', fontWeight: 700 }}>✓ Baixar</button>}
+                        <button onClick={() => { setFormNota({ id: n.id, setor: n.setor, numero: n.numero, tipo: n.tipo, descricao: n.descricao, parte: n.parte ?? '', valor: String(n.valor), data_emissao: n.data_emissao ?? '', data_pagamento: n.data_pagamento ?? '', boleto: n.boleto ?? '', status: n.status }); setAbrirNota(true); }} style={{ padding: '6px 10px', borderRadius: 8, border: '1.5px solid var(--sa-border)', background: 'var(--sa-surface)', color: 'var(--sa-text)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.8rem' }}>✏️</button>
+                        <button onClick={async () => { if (window.confirm('Excluir?')) { await supabase.from('notas_fiscais').delete().eq('id', n.id); carregar(); } }} style={{ padding: '6px 10px', borderRadius: 8, border: '1.5px solid var(--sa-danger-soft)', background: 'var(--sa-danger-soft)', color: '#d64545', cursor: 'pointer', fontFamily: 'inherit', fontSize: '.8rem' }}>🗑️</button>
                       </div>
                     </div>
                   );
@@ -323,8 +323,8 @@ export default function Financeiro() {
 
         {/* Modal Caixa */}
         <IonModal isOpen={abrirCaixa} onDidDismiss={() => setAbrirCaixa(false)}>
-          <div style={{ height: '100%', background: '#f4f7f5', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ background: `linear-gradient(135deg,${formCaixa.tipo === 'Entrada' ? '#1c6f54,#2a9d78' : '#8b1a1a,#d64545'})`, padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ height: '100%', background: 'var(--sa-bg)', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ background: `linear-gradient(135deg,${formCaixa.tipo === 'Entrada' ? 'var(--sa-primary-dark),var(--sa-primary)' : '#8b1a1a,#d64545'})`, padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <h2 style={{ color: '#fff', margin: 0, fontSize: '1.1rem', fontWeight: 800 }}>{formCaixa.id ? '✏️ Editar lançamento' : formCaixa.tipo === 'Entrada' ? '📈 Nova entrada' : '📉 Nova saída'}</h2>
               <button onClick={() => setAbrirCaixa(false)} style={{ background: 'rgba(255,255,255,.2)', border: 'none', borderRadius: 8, color: '#fff', padding: '6px 12px', cursor: 'pointer', fontSize: '1rem' }}>✕</button>
             </div>
@@ -338,7 +338,7 @@ export default function Financeiro() {
                 <Campo label="Data *"><input style={inputStyle} type="date" value={formCaixa.data} onChange={e => setCaixa('data', e.target.value)} /></Campo>
                 <Campo label="Forma de pagamento"><select style={inputStyle} value={formCaixa.forma} onChange={e => setCaixa('forma', e.target.value)}><option value="">Selecione...</option>{FORMAS.map(f => <option key={f} value={f}>{f}</option>)}</select></Campo>
                 <Campo label="Status"><select style={inputStyle} value={formCaixa.status} onChange={e => setCaixa('status', e.target.value)}><option value="Pago">Pago</option><option value="Pendente">Pendente</option></select></Campo>
-                <button type="submit" disabled={salvando} style={{ width: '100%', padding: '13px', borderRadius: 10, border: 'none', background: salvando ? '#7fcfb4' : '#2a9d78', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: salvando ? 'not-allowed' : 'pointer', fontFamily: 'inherit', marginTop: 8 }}>
+                <button type="submit" disabled={salvando} style={{ width: '100%', padding: '13px', borderRadius: 10, border: 'none', background: salvando ? '#80cfc6' : 'var(--sa-primary)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: salvando ? 'not-allowed' : 'pointer', fontFamily: 'inherit', marginTop: 8 }}>
                   {salvando ? 'Salvando...' : 'Salvar lançamento'}
                 </button>
               </form>
@@ -348,8 +348,8 @@ export default function Financeiro() {
 
         {/* Modal Nota Fiscal */}
         <IonModal isOpen={abrirNota} onDidDismiss={() => setAbrirNota(false)}>
-          <div style={{ height: '100%', background: '#f4f7f5', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ background: 'linear-gradient(135deg,#1c6f54,#2a9d78)', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ height: '100%', background: 'var(--sa-bg)', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ background: 'linear-gradient(135deg,var(--sa-primary-dark),var(--sa-primary))', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <h2 style={{ color: '#fff', margin: 0, fontSize: '1.1rem', fontWeight: 800 }}>{formNota.id ? '✏️ Editar NF' : '🧾 Nova nota fiscal'}</h2>
               <button onClick={() => setAbrirNota(false)} style={{ background: 'rgba(255,255,255,.2)', border: 'none', borderRadius: 8, color: '#fff', padding: '6px 12px', cursor: 'pointer', fontSize: '1rem' }}>✕</button>
             </div>
@@ -365,7 +365,7 @@ export default function Financeiro() {
                 <Campo label="Data de vencimento"><input style={inputStyle} type="date" value={formNota.data_pagamento} onChange={e => setNota('data_pagamento', e.target.value)} /></Campo>
                 <Campo label="Linha do boleto"><input style={inputStyle} value={formNota.boleto} onChange={e => setNota('boleto', e.target.value)} placeholder="Opcional" /></Campo>
                 <Campo label="Status"><select style={inputStyle} value={formNota.status} onChange={e => setNota('status', e.target.value)}><option value="Pendente">Pendente</option><option value="Pago">Pago</option></select></Campo>
-                <button type="submit" disabled={salvando} style={{ width: '100%', padding: '13px', borderRadius: 10, border: 'none', background: salvando ? '#7fcfb4' : '#2a9d78', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: salvando ? 'not-allowed' : 'pointer', fontFamily: 'inherit', marginTop: 8 }}>
+                <button type="submit" disabled={salvando} style={{ width: '100%', padding: '13px', borderRadius: 10, border: 'none', background: salvando ? '#80cfc6' : 'var(--sa-primary)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: salvando ? 'not-allowed' : 'pointer', fontFamily: 'inherit', marginTop: 8 }}>
                   {salvando ? 'Salvando...' : 'Salvar nota fiscal'}
                 </button>
               </form>

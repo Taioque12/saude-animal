@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import { IonPage } from '@ionic/react';
 import { supabase } from '../lib/supabase';
+import { LogoIcon } from '../components/Logo';
 import '../site.css';
 
 export default function Login() {
@@ -30,7 +31,7 @@ export default function Login() {
       {/* Lado esquerdo — branding */}
       <div style={{
         flex: 1,
-        background: 'linear-gradient(145deg, #1c6f54 0%, #2a9d78 60%, #3dbf8f 100%)',
+        background: 'linear-gradient(145deg, var(--sa-primary-dark) 0%, var(--sa-primary) 60%, #3dbf8f 100%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -54,18 +55,18 @@ export default function Login() {
         {/* Logo */}
         <div style={{ zIndex: 1, textAlign: 'center', color: '#fff' }}>
           <div style={{
-            width: 72, height: 72, background: 'rgba(255,255,255,.15)',
-            borderRadius: 20, display: 'flex', alignItems: 'center',
-            justifyContent: 'center', margin: '0 auto 20px', fontSize: 36,
+            width: 92, height: 92, background: 'rgba(255,255,255,.92)',
+            borderRadius: 24, display: 'flex', alignItems: 'center',
+            justifyContent: 'center', margin: '0 auto 20px',
             backdropFilter: 'blur(10px)',
           }}>
-            🐾
+            <LogoIcon size={64} />
           </div>
           <h1 style={{ fontSize: '2rem', fontWeight: 800, margin: '0 0 8px', color: '#fff' }}>
-            Cia Pet
+            Saúde Animal
           </h1>
-          <p style={{ fontSize: '.9rem', opacity: .8, margin: '0 0 48px', color: '#fff' }}>
-            Clínica · Banho e Tosa
+          <p style={{ fontSize: '.82rem', opacity: .85, margin: '0 0 48px', color: '#fff', letterSpacing: 2, fontWeight: 600 }}>
+            CLÍNICA VETERINÁRIA
           </p>
 
           <div style={{ borderTop: '1px solid rgba(255,255,255,.2)', paddingTop: 40 }}>
@@ -94,18 +95,18 @@ export default function Login() {
       <div style={{
         flex: 1, display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
-        background: '#f4f8f6', padding: '40px 32px',
+        background: 'var(--sa-bg)', padding: '40px 32px',
       }}>
         <div style={{
           width: '100%', maxWidth: 420,
-          background: '#fff', borderRadius: 20,
+          background: 'var(--sa-surface)', borderRadius: 20,
           boxShadow: '0 20px 60px rgba(20,60,50,.1)',
           padding: '40px 36px',
         }}>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800, margin: '0 0 6px', color: '#20302a' }}>
             Bem-vindo de volta
           </h2>
-          <p style={{ fontSize: '.9rem', color: '#5f6f69', margin: '0 0 32px' }}>
+          <p style={{ fontSize: '.9rem', color: 'var(--sa-text-muted)', margin: '0 0 32px' }}>
             Entre com suas credenciais para acessar o painel
           </p>
 
@@ -125,13 +126,13 @@ export default function Login() {
                 required
                 style={{
                   width: '100%', padding: '12px 16px', borderRadius: 10,
-                  border: '1.5px solid #e4ece8', fontSize: '1rem',
-                  color: '#20302a', background: '#fff', boxSizing: 'border-box',
+                  border: '1.5px solid var(--sa-border)', fontSize: '1rem',
+                  color: '#20302a', background: 'var(--sa-surface)', boxSizing: 'border-box',
                   outline: 'none', transition: 'border-color .2s',
                   fontFamily: 'inherit',
                 }}
-                onFocus={e => e.target.style.borderColor = '#2a9d78'}
-                onBlur={e => e.target.style.borderColor = '#e4ece8'}
+                onFocus={e => e.target.style.borderColor = 'var(--sa-primary)'}
+                onBlur={e => e.target.style.borderColor = 'var(--sa-border)'}
               />
             </div>
 
@@ -150,19 +151,19 @@ export default function Login() {
                 required
                 style={{
                   width: '100%', padding: '12px 16px', borderRadius: 10,
-                  border: '1.5px solid #e4ece8', fontSize: '1rem',
-                  color: '#20302a', background: '#fff', boxSizing: 'border-box',
+                  border: '1.5px solid var(--sa-border)', fontSize: '1rem',
+                  color: '#20302a', background: 'var(--sa-surface)', boxSizing: 'border-box',
                   outline: 'none', transition: 'border-color .2s',
                   fontFamily: 'inherit',
                 }}
-                onFocus={e => e.target.style.borderColor = '#2a9d78'}
-                onBlur={e => e.target.style.borderColor = '#e4ece8'}
+                onFocus={e => e.target.style.borderColor = 'var(--sa-primary)'}
+                onBlur={e => e.target.style.borderColor = 'var(--sa-border)'}
               />
             </div>
 
             {erro && (
               <div style={{
-                background: '#fdecea', border: '1px solid #f5c2c2', borderRadius: 10,
+                background: 'var(--sa-danger-soft)', border: '1px solid #f5c2c2', borderRadius: 10,
                 padding: '12px 16px', marginBottom: 20,
                 color: '#b02020', fontSize: '.88rem', display: 'flex', gap: 8,
               }}>
@@ -175,7 +176,7 @@ export default function Login() {
               disabled={enviando}
               style={{
                 width: '100%', padding: '14px', borderRadius: 10,
-                background: enviando ? '#7fcfb4' : '#2a9d78',
+                background: enviando ? '#80cfc6' : 'var(--sa-primary)',
                 color: '#fff', border: 'none', fontSize: '1rem',
                 fontWeight: 700, cursor: enviando ? 'not-allowed' : 'pointer',
                 transition: 'background .2s', fontFamily: 'inherit',
@@ -198,17 +199,17 @@ export default function Login() {
           <div style={{ textAlign: 'center', marginTop: 24 }}>
             <a
               href="/"
-              style={{ color: '#5f6f69', fontSize: '.88rem', textDecoration: 'none' }}
-              onMouseEnter={e => (e.target as HTMLElement).style.color = '#2a9d78'}
-              onMouseLeave={e => (e.target as HTMLElement).style.color = '#5f6f69'}
+              style={{ color: 'var(--sa-text-muted)', fontSize: '.88rem', textDecoration: 'none' }}
+              onMouseEnter={e => (e.target as HTMLElement).style.color = 'var(--sa-primary)'}
+              onMouseLeave={e => (e.target as HTMLElement).style.color = 'var(--sa-text-muted)'}
             >
               ← Voltar ao site
             </a>
           </div>
         </div>
 
-        <p style={{ marginTop: 24, fontSize: '.78rem', color: '#5f6f69' }}>
-          © 2025 Cia Pet · Acesso restrito à equipe
+        <p style={{ marginTop: 24, fontSize: '.78rem', color: 'var(--sa-text-muted)' }}>
+          © 2026 Saúde Animal · Acesso restrito à equipe
         </p>
       </div>
 

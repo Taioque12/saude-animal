@@ -13,9 +13,9 @@ interface Agendamento {
 }
 
 const STATUS_CONFIG: Record<string, { cor: string; bg: string; emoji: string }> = {
-  Pendente:   { cor: '#e07b39', bg: '#fff0e6', emoji: '⏳' },
-  Confirmado: { cor: '#2a9d78', bg: '#e3f3eb', emoji: '✅' },
-  Cancelado:  { cor: '#d64545', bg: '#fdecea', emoji: '✖️' },
+  Pendente:   { cor: 'var(--sa-warning)', bg: '#fff0e6', emoji: '⏳' },
+  Confirmado: { cor: 'var(--sa-primary)', bg: 'var(--sa-primary-soft)', emoji: '✅' },
+  Cancelado:  { cor: '#d64545', bg: 'var(--sa-danger-soft)', emoji: '✖️' },
 };
 
 const FILTROS = ['Todos', 'Pendente', 'Confirmado', 'Cancelado'];
@@ -53,7 +53,7 @@ export default function Agendamentos() {
           <IonTitle>Agendamentos</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent style={{ '--background': '#f4f7f5' }}>
+      <IonContent style={{ '--background': 'var(--sa-bg)' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', padding: '20px 16px' }}>
 
           {/* Filtros */}
@@ -64,8 +64,8 @@ export default function Agendamentos() {
               return (
                 <button key={f} onClick={() => setFiltro(f)} style={{
                   padding: '8px 16px', borderRadius: 20, border: 'none', cursor: 'pointer',
-                  background: ativo ? (cfg?.cor ?? '#1a2e27') : '#fff',
-                  color: ativo ? '#fff' : '#5f6f69',
+                  background: ativo ? (cfg?.cor ?? 'var(--sa-text)') : 'var(--sa-surface)',
+                  color: ativo ? '#fff' : 'var(--sa-text-muted)',
                   fontWeight: ativo ? 700 : 400, fontSize: '.88rem',
                   boxShadow: '0 2px 8px rgba(0,0,0,.06)',
                   display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'inherit',
@@ -73,8 +73,8 @@ export default function Agendamentos() {
                 }}>
                   {cfg?.emoji} {f}
                   <span style={{
-                    background: ativo ? 'rgba(255,255,255,.25)' : '#f0f4f2',
-                    color: ativo ? '#fff' : '#1a2e27',
+                    background: ativo ? 'rgba(255,255,255,.25)' : 'var(--sa-surface-2)',
+                    color: ativo ? '#fff' : 'var(--sa-text)',
                     borderRadius: 10, padding: '1px 7px', fontSize: '.75rem', fontWeight: 700,
                   }}>
                     {counts[f as keyof typeof counts]}
@@ -88,7 +88,7 @@ export default function Agendamentos() {
           {carregando ? (
             <div style={{ textAlign: 'center', padding: 40 }}><IonSpinner /></div>
           ) : filtrados.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: 48, color: '#6b7f79' }}>
+            <div style={{ textAlign: 'center', padding: 48, color: 'var(--sa-text-muted)' }}>
               <div style={{ fontSize: 40, marginBottom: 12 }}>📭</div>
               <p style={{ margin: 0 }}>Nenhum agendamento nesta categoria.</p>
             </div>
@@ -98,14 +98,14 @@ export default function Agendamentos() {
                 const cfg = STATUS_CONFIG[a.status] ?? STATUS_CONFIG['Pendente'];
                 return (
                   <div key={a.id} style={{
-                    background: '#fff', borderRadius: 14, padding: '18px 20px',
+                    background: 'var(--sa-surface)', borderRadius: 14, padding: '18px 20px',
                     boxShadow: '0 2px 12px rgba(0,0,0,.06)',
                     display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap',
                   }}>
                     {/* Ícone setor */}
                     <div style={{
                       width: 48, height: 48, borderRadius: 12, flexShrink: 0,
-                      background: a.setor === 'Clínica Veterinária' ? '#eef0ff' : '#e3f3eb',
+                      background: a.setor === 'Clínica Veterinária' ? 'var(--sa-info-soft)' : 'var(--sa-primary-soft)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22,
                     }}>
                       {a.setor === 'Clínica Veterinária' ? '🏥' : '✂️'}
@@ -113,24 +113,24 @@ export default function Agendamentos() {
 
                     {/* Info principal */}
                     <div style={{ flex: 1, minWidth: 180 }}>
-                      <div style={{ fontWeight: 700, color: '#1a2e27', fontSize: '1rem', marginBottom: 4 }}>
+                      <div style={{ fontWeight: 700, color: 'var(--sa-text)', fontSize: '1rem', marginBottom: 4 }}>
                         {a.pet_nome}
                         <span style={{
                           marginLeft: 8, fontSize: '.72rem', fontWeight: 600,
-                          background: a.setor === 'Clínica Veterinária' ? '#eef0ff' : '#e3f3eb',
-                          color: a.setor === 'Clínica Veterinária' ? '#5b6af5' : '#2a9d78',
+                          background: a.setor === 'Clínica Veterinária' ? 'var(--sa-info-soft)' : 'var(--sa-primary-soft)',
+                          color: a.setor === 'Clínica Veterinária' ? 'var(--sa-info)' : 'var(--sa-primary)',
                           borderRadius: 6, padding: '2px 8px',
                         }}>{a.setor}</span>
                       </div>
-                      <div style={{ color: '#6b7f79', fontSize: '.82rem' }}>
+                      <div style={{ color: 'var(--sa-text-muted)', fontSize: '.82rem' }}>
                         👤 {a.tutor_nome} · 📞 {a.tutor_telefone}
                       </div>
                     </div>
 
                     {/* Data e turno */}
                     <div style={{ textAlign: 'center', flexShrink: 0 }}>
-                      <div style={{ fontWeight: 700, color: '#1a2e27', fontSize: '.95rem' }}>{dataBR(a.data)}</div>
-                      <div style={{ color: '#6b7f79', fontSize: '.78rem', marginTop: 2 }}>{a.turno}</div>
+                      <div style={{ fontWeight: 700, color: 'var(--sa-text)', fontSize: '.95rem' }}>{dataBR(a.data)}</div>
+                      <div style={{ color: 'var(--sa-text-muted)', fontSize: '.78rem', marginTop: 2 }}>{a.turno}</div>
                     </div>
 
                     {/* Status badge */}
@@ -147,7 +147,7 @@ export default function Agendamentos() {
                       {a.status === 'Pendente' && (
                         <button onClick={() => mudarStatus(a, 'Confirmado')} style={{
                           padding: '7px 14px', borderRadius: 8, border: 'none', cursor: 'pointer',
-                          background: '#2a9d78', color: '#fff', fontSize: '.82rem', fontWeight: 600,
+                          background: 'var(--sa-primary)', color: '#fff', fontSize: '.82rem', fontWeight: 600,
                           fontFamily: 'inherit',
                         }}>Confirmar</button>
                       )}
@@ -162,8 +162,8 @@ export default function Agendamentos() {
                       {a.status === 'Cancelado' && (
                         <button onClick={() => mudarStatus(a, 'Pendente')} style={{
                           padding: '7px 14px', borderRadius: 8, cursor: 'pointer',
-                          background: 'transparent', border: '1.5px solid #6b7f79',
-                          color: '#6b7f79', fontSize: '.82rem', fontWeight: 600,
+                          background: 'transparent', border: '1.5px solid var(--sa-text-muted)',
+                          color: 'var(--sa-text-muted)', fontSize: '.82rem', fontWeight: 600,
                           fontFamily: 'inherit',
                         }}>Reabrir</button>
                       )}

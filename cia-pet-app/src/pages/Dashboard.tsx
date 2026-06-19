@@ -12,9 +12,9 @@ interface Agendamento {
 }
 
 const CARDS = [
-  { key: 'hoje',      label: 'Confirmados hoje',       emoji: '✅', cor: '#2a9d78', bg: '#e3f3eb' },
-  { key: 'pendentes', label: 'Agendamentos pendentes',  emoji: '⏳', cor: '#e07b39', bg: '#fff0e6' },
-  { key: 'pets',      label: 'Pacientes cadastrados',   emoji: '🐾', cor: '#5b6af5', bg: '#eef0ff' },
+  { key: 'hoje',      label: 'Confirmados hoje',       emoji: '✅', cor: 'var(--sa-primary)', bg: 'var(--sa-primary-soft)' },
+  { key: 'pendentes', label: 'Agendamentos pendentes',  emoji: '⏳', cor: 'var(--sa-warning)', bg: '#fff0e6' },
+  { key: 'pets',      label: 'Pacientes cadastrados',   emoji: '🐾', cor: 'var(--sa-info)', bg: 'var(--sa-info-soft)' },
   { key: 'tutores',   label: 'Tutores cadastrados',     emoji: '👥', cor: '#d4669a', bg: '#fdeef6' },
 ];
 
@@ -45,12 +45,12 @@ export default function Dashboard() {
           <IonTitle>Painel</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent style={{ '--background': '#f4f7f5' }}>
+      <IonContent style={{ '--background': 'var(--sa-bg)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '24px 16px' }}>
 
           {/* Boas-vindas */}
           <div style={{
-            background: 'linear-gradient(135deg, #1c6f54, #2a9d78)',
+            background: 'linear-gradient(135deg, var(--sa-primary-dark), var(--sa-primary))',
             borderRadius: 16, padding: '24px 28px', marginBottom: 24,
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             boxShadow: '0 8px 24px rgba(42,157,120,.2)',
@@ -60,7 +60,7 @@ export default function Dashboard() {
                 {diaSemana()}
               </div>
               <h2 style={{ color: '#fff', margin: 0, fontSize: '1.4rem', fontWeight: 800 }}>
-                Bem-vindo ao painel da Cia Pet 🐾
+                Bem-vindo ao painel da Saúde Animal 🐾
               </h2>
               <p style={{ color: 'rgba(255,255,255,.7)', margin: '6px 0 0', fontSize: '.9rem' }}>
                 Gerencie agendamentos, pacientes, estoque e financeiro em um só lugar.
@@ -76,7 +76,7 @@ export default function Dashboard() {
           }}>
             {CARDS.map((c) => (
               <div key={c.key} style={{
-                background: '#fff', borderRadius: 14, padding: '20px 22px',
+                background: 'var(--sa-surface)', borderRadius: 14, padding: '20px 22px',
                 boxShadow: '0 2px 12px rgba(0,0,0,.06)', display: 'flex',
                 alignItems: 'center', gap: 16,
               }}>
@@ -91,25 +91,25 @@ export default function Dashboard() {
                   <div style={{ fontSize: '1.9rem', fontWeight: 800, color: c.cor, lineHeight: 1 }}>
                     {stats[c.key as keyof typeof stats]}
                   </div>
-                  <div style={{ fontSize: '.78rem', color: '#6b7f79', marginTop: 4 }}>{c.label}</div>
+                  <div style={{ fontSize: '.78rem', color: 'var(--sa-text-muted)', marginTop: 4 }}>{c.label}</div>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Agendamentos pendentes */}
-          <div style={{ background: '#fff', borderRadius: 14, boxShadow: '0 2px 12px rgba(0,0,0,.06)', overflow: 'hidden' }}>
+          <div style={{ background: 'var(--sa-surface)', borderRadius: 14, boxShadow: '0 2px 12px rgba(0,0,0,.06)', overflow: 'hidden' }}>
             <div style={{
               padding: '18px 22px', borderBottom: '1px solid #eef2f0',
               display: 'flex', alignItems: 'center', gap: 10,
             }}>
               <span style={{ fontSize: 20 }}>⏳</span>
-              <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: '#1a2e27' }}>
+              <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: 'var(--sa-text)' }}>
                 Agendamentos pendentes
               </h3>
               {pendentes.length > 0 && (
                 <span style={{
-                  marginLeft: 'auto', background: '#fff0e6', color: '#e07b39',
+                  marginLeft: 'auto', background: '#fff0e6', color: 'var(--sa-warning)',
                   borderRadius: 20, padding: '2px 10px', fontSize: '.78rem', fontWeight: 700,
                 }}>
                   {pendentes.length} pendente{pendentes.length > 1 ? 's' : ''}
@@ -120,45 +120,45 @@ export default function Dashboard() {
             {pendentes.length === 0 ? (
               <div style={{ padding: '36px', textAlign: 'center' }}>
                 <div style={{ fontSize: 40, marginBottom: 12 }}>✅</div>
-                <p style={{ color: '#6b7f79', margin: 0, fontWeight: 500 }}>Nenhuma pendência. Tudo em dia!</p>
+                <p style={{ color: 'var(--sa-text-muted)', margin: 0, fontWeight: 500 }}>Nenhuma pendência. Tudo em dia!</p>
               </div>
             ) : (
               <div>
                 {pendentes.map((a, i) => (
                   <div key={a.id} style={{
                     padding: '16px 22px',
-                    borderBottom: i < pendentes.length - 1 ? '1px solid #f0f4f2' : 'none',
+                    borderBottom: i < pendentes.length - 1 ? '1px solid var(--sa-surface-2)' : 'none',
                     display: 'flex', alignItems: 'center', gap: 16,
                   }}>
                     <div style={{
                       width: 44, height: 44, borderRadius: 12, flexShrink: 0,
-                      background: a.setor === 'Clínica Veterinária' ? '#eef0ff' : '#e3f3eb',
+                      background: a.setor === 'Clínica Veterinária' ? 'var(--sa-info-soft)' : 'var(--sa-primary-soft)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20,
                     }}>
                       {a.setor === 'Clínica Veterinária' ? '🏥' : '✂️'}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontWeight: 700, color: '#1a2e27', fontSize: '.95rem' }}>
+                      <div style={{ fontWeight: 700, color: 'var(--sa-text)', fontSize: '.95rem' }}>
                         {a.pet_nome}
                         <span style={{
                           marginLeft: 8, fontSize: '.72rem', fontWeight: 600,
-                          background: a.setor === 'Clínica Veterinária' ? '#eef0ff' : '#e3f3eb',
-                          color: a.setor === 'Clínica Veterinária' ? '#5b6af5' : '#2a9d78',
+                          background: a.setor === 'Clínica Veterinária' ? 'var(--sa-info-soft)' : 'var(--sa-primary-soft)',
+                          color: a.setor === 'Clínica Veterinária' ? 'var(--sa-info)' : 'var(--sa-primary)',
                           borderRadius: 6, padding: '2px 8px',
                         }}>{a.setor}</span>
                       </div>
-                      <div style={{ color: '#6b7f79', fontSize: '.82rem', marginTop: 3 }}>
+                      <div style={{ color: 'var(--sa-text-muted)', fontSize: '.82rem', marginTop: 3 }}>
                         👤 {a.tutor_nome} · 📞 {a.tutor_telefone}
                       </div>
                     </div>
                     <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                      <div style={{ fontWeight: 700, color: '#1a2e27', fontSize: '.9rem' }}>
+                      <div style={{ fontWeight: 700, color: 'var(--sa-text)', fontSize: '.9rem' }}>
                         {dataBR(a.data)}
                       </div>
-                      <div style={{ color: '#6b7f79', fontSize: '.78rem', marginTop: 2 }}>{a.turno}</div>
+                      <div style={{ color: 'var(--sa-text-muted)', fontSize: '.78rem', marginTop: 2 }}>{a.turno}</div>
                     </div>
                     <span style={{
-                      background: '#fff8ec', color: '#e07b39', border: '1px solid #fdd9b5',
+                      background: 'var(--sa-warning-soft)', color: 'var(--sa-warning)', border: '1px solid #fdd9b5',
                       borderRadius: 8, padding: '4px 12px', fontSize: '.78rem', fontWeight: 700,
                       flexShrink: 0,
                     }}>Pendente</span>

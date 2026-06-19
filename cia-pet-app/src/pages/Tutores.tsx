@@ -17,9 +17,9 @@ const VAZIO: Partial<Tutor> = {
 function Avatar({ nome }: { nome: string }) {
   return (
     <div style={{
-      width: 44, height: 44, borderRadius: 12, background: '#e3f3eb',
+      width: 44, height: 44, borderRadius: 12, background: 'var(--sa-primary-soft)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontWeight: 800, fontSize: '1.1rem', color: '#2a9d78', flexShrink: 0,
+      fontWeight: 800, fontSize: '1.1rem', color: 'var(--sa-primary)', flexShrink: 0,
     }}>
       {nome.charAt(0).toUpperCase()}
     </div>
@@ -29,7 +29,7 @@ function Avatar({ nome }: { nome: string }) {
 function Campo({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <label style={{ display: 'block', fontSize: '.82rem', fontWeight: 600, color: '#1a2e27', marginBottom: 6 }}>
+      <label style={{ display: 'block', fontSize: '.82rem', fontWeight: 600, color: 'var(--sa-text)', marginBottom: 6 }}>
         {label}
       </label>
       {children}
@@ -39,8 +39,8 @@ function Campo({ label, children }: { label: string; children: React.ReactNode }
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '11px 14px', borderRadius: 10,
-  border: '1.5px solid #e4ece8', fontSize: '.95rem', color: '#1a2e27',
-  background: '#fff', boxSizing: 'border-box', fontFamily: 'inherit', outline: 'none',
+  border: '1.5px solid var(--sa-border)', fontSize: '.95rem', color: 'var(--sa-text)',
+  background: 'var(--sa-surface)', boxSizing: 'border-box', fontFamily: 'inherit', outline: 'none',
 };
 
 export default function Tutores() {
@@ -96,7 +96,7 @@ export default function Tutores() {
           <IonTitle>Tutores</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent style={{ '--background': '#f4f7f5' }}>
+      <IonContent style={{ '--background': 'var(--sa-bg)' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', padding: '20px 16px' }}>
 
           {/* Barra de busca + botão */}
@@ -109,7 +109,7 @@ export default function Tutores() {
             />
             <button onClick={() => { setForm(VAZIO); setAberto(true); }} style={{
               padding: '11px 20px', borderRadius: 10, border: 'none', cursor: 'pointer',
-              background: '#2a9d78', color: '#fff', fontWeight: 700, fontSize: '.9rem',
+              background: 'var(--sa-primary)', color: '#fff', fontWeight: 700, fontSize: '.9rem',
               fontFamily: 'inherit', whiteSpace: 'nowrap',
             }}>
               + Novo tutor
@@ -120,7 +120,7 @@ export default function Tutores() {
           {carregando ? (
             <div style={{ textAlign: 'center', padding: 40 }}><IonSpinner /></div>
           ) : filtrados.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: 48, color: '#6b7f79' }}>
+            <div style={{ textAlign: 'center', padding: 48, color: 'var(--sa-text-muted)' }}>
               <div style={{ fontSize: 40, marginBottom: 12 }}>👥</div>
               <p style={{ margin: 0 }}>Nenhum tutor encontrado.</p>
             </div>
@@ -128,28 +128,28 @@ export default function Tutores() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {filtrados.map((t) => (
                 <div key={t.id} style={{
-                  background: '#fff', borderRadius: 14, padding: '16px 20px',
+                  background: 'var(--sa-surface)', borderRadius: 14, padding: '16px 20px',
                   boxShadow: '0 2px 12px rgba(0,0,0,.06)',
                   display: 'flex', alignItems: 'center', gap: 14,
                 }}>
                   <Avatar nome={t.nome} />
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontWeight: 700, color: '#1a2e27', fontSize: '.97rem' }}>{t.nome}</div>
-                    <div style={{ color: '#6b7f79', fontSize: '.82rem', marginTop: 3 }}>
+                    <div style={{ fontWeight: 700, color: 'var(--sa-text)', fontSize: '.97rem' }}>{t.nome}</div>
+                    <div style={{ color: 'var(--sa-text-muted)', fontSize: '.82rem', marginTop: 3 }}>
                       {t.telefone && `📞 ${t.telefone}`}
                       {t.email && ` · ✉️ ${t.email}`}
                     </div>
-                    {t.cpf && <div style={{ color: '#6b7f79', fontSize: '.78rem', marginTop: 2 }}>CPF: {t.cpf}</div>}
+                    {t.cpf && <div style={{ color: 'var(--sa-text-muted)', fontSize: '.78rem', marginTop: 2 }}>CPF: {t.cpf}</div>}
                   </div>
                   <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
                     <button onClick={() => { setForm(t); setAberto(true); }} style={{
-                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid #e4ece8',
-                      background: '#fff', color: '#1a2e27', cursor: 'pointer',
+                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid var(--sa-border)',
+                      background: 'var(--sa-surface)', color: 'var(--sa-text)', cursor: 'pointer',
                       fontSize: '.82rem', fontFamily: 'inherit',
                     }}>✏️ Editar</button>
                     <button onClick={() => excluir(t)} style={{
-                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid #fdecea',
-                      background: '#fdecea', color: '#d64545', cursor: 'pointer',
+                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid var(--sa-danger-soft)',
+                      background: 'var(--sa-danger-soft)', color: '#d64545', cursor: 'pointer',
                       fontSize: '.82rem', fontFamily: 'inherit',
                     }}>🗑️</button>
                   </div>
@@ -161,8 +161,8 @@ export default function Tutores() {
 
         {/* Modal */}
         <IonModal isOpen={aberto} onDidDismiss={() => setAberto(false)}>
-          <div style={{ height: '100%', background: '#f4f7f5', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ background: 'linear-gradient(135deg,#1c6f54,#2a9d78)', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ height: '100%', background: 'var(--sa-bg)', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ background: 'linear-gradient(135deg,var(--sa-primary-dark),var(--sa-primary))', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <h2 style={{ color: '#fff', margin: 0, fontSize: '1.1rem', fontWeight: 800 }}>
                 {form.id ? '✏️ Editar tutor' : '👤 Novo tutor'}
               </h2>
@@ -190,7 +190,7 @@ export default function Tutores() {
                 </Campo>
                 <button type="submit" disabled={salvando} style={{
                   width: '100%', padding: '13px', borderRadius: 10, border: 'none',
-                  background: salvando ? '#7fcfb4' : '#2a9d78', color: '#fff',
+                  background: salvando ? '#80cfc6' : 'var(--sa-primary)', color: '#fff',
                   fontWeight: 700, fontSize: '1rem', cursor: salvando ? 'not-allowed' : 'pointer',
                   fontFamily: 'inherit', marginTop: 8,
                 }}>

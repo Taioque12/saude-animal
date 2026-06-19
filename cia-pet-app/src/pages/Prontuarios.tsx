@@ -29,7 +29,7 @@ const VAZIO = { anamnese: '', peso: '', vacinas: '', exames: '', prescricao: '' 
 
 // Dados fixos da clínica (cabeçalho do receituário).
 const CLINICA = {
-  nome: 'Cia Pet',
+  nome: 'Saúde Animal',
   endereco: 'R. Rio Grande do Sul, Jardim Cruzeiro — Lençóis Paulista/SP',
   telefone: '(14) 3264-7135',
 };
@@ -63,12 +63,12 @@ function imprimirReceituario(opts: {
   @page { size: A4; margin: 18mm; }
   * { box-sizing: border-box; }
   body { font-family: Arial, Helvetica, sans-serif; color: #1a2e27; margin: 0; }
-  .topo { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #2a9d78; padding-bottom: 14px; }
-  .marca { font-size: 26px; font-weight: 800; color: #1c6f54; letter-spacing: .5px; }
+  .topo { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #13a89e; padding-bottom: 14px; }
+  .marca { font-size: 26px; font-weight: 800; color: #0d8d84; letter-spacing: .5px; }
   .sub { font-size: 12px; color: #5f6f69; margin-top: 4px; line-height: 1.5; }
   .vet { text-align: right; font-size: 13px; }
   .vet b { display: block; font-size: 15px; color: #1a2e27; }
-  .titulo { text-align: center; font-size: 20px; font-weight: 800; letter-spacing: 3px; color: #1c6f54; margin: 28px 0 18px; }
+  .titulo { text-align: center; font-size: 20px; font-weight: 800; letter-spacing: 3px; color: #0d8d84; margin: 28px 0 18px; }
   .box { border: 1px solid #d9e6e0; border-radius: 8px; padding: 14px 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; font-size: 13px; }
   .box .l { color: #5f6f69; }
   .box .v { font-weight: 700; }
@@ -106,7 +106,7 @@ function imprimirReceituario(opts: {
     <div style="margin-top:18px;color:#5f6f69;">Lençóis Paulista, ${esc(dataExtenso(opts.criadoEm))}</div>
   </div>
 
-  <div class="rodape">Documento emitido pelo sistema Cia Pet</div>
+  <div class="rodape">Documento emitido pelo sistema Saúde Animal</div>
 </body></html>`;
 
   const iframe = document.createElement('iframe');
@@ -244,7 +244,7 @@ export default function Prontuarios() {
                   {p.exames && <p><strong>Exames:</strong> {p.exames}</p>}
                   {p.prescricao && <p><strong>Prescrição:</strong> {p.prescricao}</p>}
                 </IonLabel>
-                <IonButton fill="clear" color="success" slot="end" title="Imprimir receituário" onClick={() => imprimir(p)}>
+                <IonButton fill="clear" color="primary" slot="end" title="Imprimir receituário" onClick={() => imprimir(p)}>
                   <IonIcon slot="icon-only" icon={printOutline} />
                 </IonButton>
                 <IonButton fill="clear" slot="end" onClick={() => abrirEditar(p)}>

@@ -11,7 +11,7 @@ function gerarICS(ag: any): string {
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Cia Pet//Agendamento//PT',
+    'PRODID:-//Saude Animal//Agendamento//PT',
     'BEGIN:VEVENT',
     `UID:${ag.id}@ciapet`,
     `DTSTAMP:${dtStr}T${inicio}Z`,
@@ -19,7 +19,7 @@ function gerarICS(ag: any): string {
     `DTEND;TZID=America/Sao_Paulo:${dtStr}T${fim}`,
     `SUMMARY:${ag.setor} — ${ag.pet_nome}`,
     `DESCRIPTION:Tutor: ${ag.tutor_nome}\\nTelefone: ${ag.tutor_telefone}\\nTurno: ${ag.turno}`,
-    'LOCATION:Cia Pet — R. Rio Grande do Sul, Jardim Cruzeiro, Lençóis Paulista/SP',
+    'LOCATION:Saúde Animal — R. Rio Grande do Sul, Jardim Cruzeiro, Lençóis Paulista/SP',
     'STATUS:TENTATIVE',
     'END:VEVENT',
     'END:VCALENDAR',
@@ -39,7 +39,7 @@ function linkGoogleAgenda(ag: any): string {
   const detalhes = encodeURIComponent(
     `Tutor: ${ag.tutor_nome}\nTelefone: ${ag.tutor_telefone}\nTurno: ${ag.turno}`
   );
-  const local = encodeURIComponent('Cia Pet — R. Rio Grande do Sul, Jardim Cruzeiro, Lençóis Paulista/SP');
+  const local = encodeURIComponent('Saúde Animal — R. Rio Grande do Sul, Jardim Cruzeiro, Lençóis Paulista/SP');
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${texto}&dates=${datas}&details=${detalhes}&location=${local}&ctz=America/Sao_Paulo`;
 }
 
@@ -59,13 +59,13 @@ serve(async (req) => {
     const googleLink   = linkGoogleAgenda(ag);
 
     const emailBody = {
-      from: 'Cia Pet <onboarding@resend.dev>',
+      from: 'Saúde Animal <onboarding@resend.dev>',
       to:   [EMAIL_DESTINO],
       subject: `📅 Novo agendamento — ${ag.pet_nome} (${ag.setor})`,
       html: `
-        <div style="font-family:sans-serif;max-width:520px;margin:0 auto;border:1px solid #e4ece8;border-radius:14px;overflow:hidden;">
-          <div style="background:linear-gradient(135deg,#1c6f54,#2a9d78);padding:24px 28px;">
-            <h2 style="color:#fff;margin:0;font-size:1.2rem;">🐾 Novo agendamento — Cia Pet</h2>
+        <div style="font-family:sans-serif;max-width:520px;margin:0 auto;border:1px solid #e2ebe8;border-radius:14px;overflow:hidden;">
+          <div style="background:linear-gradient(135deg,#0d8d84,#13a89e);padding:24px 28px;">
+            <h2 style="color:#fff;margin:0;font-size:1.2rem;">🐾 Novo agendamento — Saúde Animal</h2>
           </div>
           <div style="padding:24px 28px;">
             <table style="width:100%;border-collapse:collapse;">
@@ -73,7 +73,7 @@ serve(async (req) => {
               <tr><td style="padding:8px 0;color:#5f6f69;">Tutor</td><td style="color:#1a2e27;">${ag.tutor_nome}</td></tr>
               <tr><td style="padding:8px 0;color:#5f6f69;">Telefone</td><td style="color:#1a2e27;">${ag.tutor_telefone}</td></tr>
               <tr><td style="padding:8px 0;color:#5f6f69;">Setor</td><td style="color:#1a2e27;">${ag.setor}</td></tr>
-              <tr><td style="padding:8px 0;color:#5f6f69;">Data</td><td style="font-weight:700;color:#2a9d78;">${dataBR(ag.data)}</td></tr>
+              <tr><td style="padding:8px 0;color:#5f6f69;">Data</td><td style="font-weight:700;color:#13a89e;">${dataBR(ag.data)}</td></tr>
               <tr><td style="padding:8px 0;color:#5f6f69;">Turno</td><td style="color:#1a2e27;">${ag.turno}</td></tr>
             </table>
 
@@ -93,12 +93,12 @@ serve(async (req) => {
               </a>
             </div>
 
-            <div style="margin-top:16px;padding:14px;background:#e3f3eb;border-radius:10px;color:#1c6f54;font-size:.85rem;">
+            <div style="margin-top:16px;padding:14px;background:#e2f4f1;border-radius:10px;color:#0d8d84;font-size:.85rem;">
               📎 O arquivo <strong>.ics</strong> em anexo também permite adicionar ao Outlook ou Apple Calendar.
             </div>
           </div>
-          <div style="padding:16px 28px;background:#f4f8f6;font-size:.8rem;color:#5f6f69;text-align:center;">
-            Cia Pet · R. Rio Grande do Sul, Jardim Cruzeiro, Lençóis Paulista/SP
+          <div style="padding:16px 28px;background:#f4f7f6;font-size:.8rem;color:#5f6f69;text-align:center;">
+            Saúde Animal · R. Rio Grande do Sul, Jardim Cruzeiro, Lençóis Paulista/SP
           </div>
         </div>
       `,

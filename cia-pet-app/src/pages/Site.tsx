@@ -2,6 +2,7 @@ import { useState, useRef, type FormEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import { IonPage, IonContent } from '@ionic/react';
 import { supabase } from '../lib/supabase';
+import { LogoIcon } from '../components/Logo';
 import '../site.css';
 
 const HOJE = new Date().toISOString().slice(0, 10);
@@ -58,10 +59,8 @@ export default function Site() {
       <header className="sp-header" style={{ position: 'relative' }}>
         <div className="sp-container sp-header-inner">
           <a href="#inicio" className="sp-logo" onClick={(e) => { e.preventDefault(); ir('inicio'); }}>
-            <div className="sp-logo-icone">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3 5 6 5c2 0 3.2 1.2 4 2.4C10.8 6.2 12 5 14 5c3 0 5 3 3.5 6.8C19.5 16.4 12 21 12 21z"/></svg>
-            </div>
-            <span className="sp-logo-texto">Cia Pet<small>Clínica · Banho & Tosa</small></span>
+            <LogoIcon size={40} />
+            <span className="sp-logo-texto">Saúde Animal<small>Clínica Veterinária</small></span>
           </a>
           <nav className={`sp-nav${menuAberto ? ' aberto' : ''}`}>
             <a href="#inicio" onClick={(e) => { e.preventDefault(); ir('inicio'); }}>Início</a>
@@ -127,14 +126,14 @@ export default function Site() {
       <section className="sp-secao sp-secao-cinza" id="sobre">
         <div className="sp-container sp-grid-2">
           <div className="sp-sobre-arte">
-            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#2a9d78" strokeWidth="1.4"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="var(--verde)" strokeWidth="1.4"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             <div className="sp-sobre-ano"><b>2013</b><span>Ano de fundação</span></div>
           </div>
           <div>
             <span className="sp-olho">Sobre Nós</span>
             <h2 className="sp-h2">Nossa história e fundação</h2>
             <p className="sp-subtitulo" style={{ marginBottom: 14 }}>
-              A <strong>Cia Pet</strong> nasceu em <strong>2013</strong>, do sonho do médico veterinário <strong>Dr. Ighor Morales</strong>, que uniu experiência clínica e paixão pelos animais para criar um espaço de cuidado de verdade.
+              A <strong>Saúde Animal</strong> nasceu em <strong>2013</strong>, do sonho do médico veterinário <strong>Dr. Ighor Morales</strong>, que uniu experiência clínica e paixão pelos animais para criar um espaço de cuidado de verdade.
             </p>
             <p className="sp-subtitulo">
               O que começou como um pequeno consultório cresceu e se tornou uma clínica completa, com setor de estética (banho e tosa) e uma equipe dedicada. Em mais de uma década, já cuidamos de milhares de pets.
@@ -157,7 +156,7 @@ export default function Site() {
           <div className="sp-centro">
             <span className="sp-olho">Identidade Organizacional</span>
             <h2 className="sp-h2">Visão, Missão e Valores</h2>
-            <p className="sp-subtitulo">Os princípios que guiam cada atendimento na Cia Pet.</p>
+            <p className="sp-subtitulo">Os princípios que guiam cada atendimento na Saúde Animal.</p>
           </div>
           <div className="sp-grid-3" style={{ marginTop: 46 }}>
             {[
@@ -198,7 +197,7 @@ export default function Site() {
                 </div>
               ))}
               <div className="sp-mapa">
-                <iframe title="Mapa Cia Pet" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-48.810%2C-22.608%2C-48.788%2C-22.592&layer=mapnik&marker=-22.600%2C-48.797" />
+                <iframe title="Mapa Saúde Animal" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-48.810%2C-22.608%2C-48.788%2C-22.592&layer=mapnik&marker=-22.600%2C-48.797" />
               </div>
             </div>
 
@@ -265,8 +264,8 @@ export default function Site() {
           <div className="sp-rodape-grid">
             <div className="sp-rodape-logo">
               <div className="sp-logo">
-                <div className="sp-logo-icone"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3 5 6 5c2 0 3.2 1.2 4 2.4C10.8 6.2 12 5 14 5c3 0 5 3 3.5 6.8C19.5 16.4 12 21 12 21z"/></svg></div>
-                <span className="sp-logo-texto">Cia Pet<small>Clínica · Banho & Tosa</small></span>
+                <LogoIcon size={38} />
+                <span className="sp-logo-texto">Saúde Animal<small>Clínica Veterinária</small></span>
               </div>
               <p>Cuidado, saúde e carinho para o seu melhor amigo desde 2013.</p>
               <div className="sp-redes">
@@ -296,8 +295,8 @@ export default function Site() {
             </div>
           </div>
           <div className="sp-rodape-base">
-            <span>CNPJ: 12.624.267/0001-39 · Cia Pet Clínica Veterinária Ltda.</span>
-            <span>© 2026 Cia Pet — Todos os direitos reservados.</span>
+            <span>CNPJ: 12.624.267/0001-39 · Saúde Animal Clínica Veterinária Ltda.</span>
+            <span>© 2026 Saúde Animal — Todos os direitos reservados.</span>
           </div>
         </div>
       </footer>

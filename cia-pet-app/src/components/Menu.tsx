@@ -1,6 +1,8 @@
 import { IonContent, IonMenu, IonMenuToggle } from '@ionic/react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import Logo from './Logo';
+import ThemeToggle from './ThemeToggle';
 
 const paginas = [
   { titulo: 'Painel',        url: '/dashboard',   emoji: '📊' },
@@ -19,19 +21,20 @@ export default function Menu() {
 
   return (
     <IonMenu contentId="main" type="overlay">
-      <IonContent style={{ '--background': '#1a2e27' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: '#1a2e27' }}>
+      <IonContent style={{ '--background': 'var(--sa-sidebar)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--sa-sidebar)' }}>
 
           {/* Logo */}
-          <div style={{ padding: '28px 20px 20px', borderBottom: '1px solid rgba(255,255,255,.08)' }}>
+          <div style={{ padding: '24px 18px 18px', borderBottom: '1px solid rgba(255,255,255,.08)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{
-                width: 42, height: 42, background: '#2a9d78', borderRadius: 12,
-                display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20,
-              }}>🐾</div>
+              <Logo size={46} />
               <div>
-                <div style={{ color: '#fff', fontWeight: 800, fontSize: '1.05rem', lineHeight: 1.2 }}>Cia Pet</div>
-                <div style={{ color: 'rgba(255,255,255,.45)', fontSize: '.72rem' }}>Painel da equipe</div>
+                <div style={{ color: '#fff', fontWeight: 800, fontSize: '1.05rem', lineHeight: 1.15 }}>
+                  Saúde Animal
+                </div>
+                <div style={{ color: 'rgba(255,255,255,.45)', fontSize: '.68rem', letterSpacing: 1.5, fontWeight: 600 }}>
+                  CLÍNICA VETERINÁRIA
+                </div>
               </div>
             </div>
           </div>
@@ -51,25 +54,26 @@ export default function Menu() {
                     style={{
                       display: 'flex', alignItems: 'center', gap: 12,
                       padding: '11px 14px', borderRadius: 10, marginBottom: 4,
-                      background: ativo ? 'rgba(42,157,120,.25)' : 'transparent',
-                      border: ativo ? '1px solid rgba(42,157,120,.4)' : '1px solid transparent',
+                      background: ativo ? 'rgba(19,168,158,.22)' : 'transparent',
+                      border: ativo ? '1px solid rgba(19,168,158,.45)' : '1px solid transparent',
                       textDecoration: 'none', cursor: 'pointer', transition: 'all .15s',
                     }}
                   >
                     <span style={{ fontSize: 17 }}>{p.emoji}</span>
                     <span style={{
-                      color: ativo ? '#4ecda4' : 'rgba(255,255,255,.7)',
+                      color: ativo ? '#3fd0c4' : 'rgba(255,255,255,.7)',
                       fontWeight: ativo ? 700 : 400, fontSize: '.92rem',
                     }}>{p.titulo}</span>
-                    {ativo && <span style={{ marginLeft: 'auto', width: 6, height: 6, borderRadius: '50%', background: '#2a9d78' }} />}
+                    {ativo && <span style={{ marginLeft: 'auto', width: 6, height: 6, borderRadius: '50%', background: 'var(--sa-primary)' }} />}
                   </a>
                 </IonMenuToggle>
               );
             })}
           </nav>
 
-          {/* Logout */}
+          {/* Tema + Logout */}
           <div style={{ padding: '12px 12px 28px', borderTop: '1px solid rgba(255,255,255,.08)' }}>
+            <ThemeToggle />
             <button
               onClick={() => supabase.auth.signOut()}
               style={{

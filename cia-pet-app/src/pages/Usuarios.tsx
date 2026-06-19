@@ -13,15 +13,15 @@ interface Usuario {
 const VAZIO = { email: '', password: '', nome: '', crmv: '' };
 
 const inputStyle: React.CSSProperties = {
-  width: '100%', padding: '11px 14px', borderRadius: 10, border: '1.5px solid #e4ece8',
-  fontSize: '.95rem', color: '#1a2e27', background: '#fff', boxSizing: 'border-box',
+  width: '100%', padding: '11px 14px', borderRadius: 10, border: '1.5px solid var(--sa-border)',
+  fontSize: '.95rem', color: 'var(--sa-text)', background: 'var(--sa-surface)', boxSizing: 'border-box',
   fontFamily: 'inherit', outline: 'none',
 };
 
 function Campo({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <label style={{ display: 'block', fontSize: '.82rem', fontWeight: 600, color: '#1a2e27', marginBottom: 6 }}>{label}</label>
+      <label style={{ display: 'block', fontSize: '.82rem', fontWeight: 600, color: 'var(--sa-text)', marginBottom: 6 }}>{label}</label>
       {children}
     </div>
   );
@@ -31,7 +31,7 @@ function Avatar({ nome, email }: { nome: string; email: string }) {
   const letra = (nome || email).charAt(0).toUpperCase();
   return (
     <div style={{
-      width: 44, height: 44, borderRadius: 12, background: 'linear-gradient(135deg,#1c6f54,#2a9d78)',
+      width: 44, height: 44, borderRadius: 12, background: 'linear-gradient(135deg,var(--sa-primary-dark),var(--sa-primary))',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       fontWeight: 800, fontSize: '1.1rem', color: '#fff', flexShrink: 0,
     }}>{letra}</div>
@@ -124,18 +124,18 @@ export default function Usuarios() {
           <IonTitle>Usuários do sistema</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent style={{ '--background': '#f4f7f5' }}>
+      <IonContent style={{ '--background': 'var(--sa-bg)' }}>
         <div style={{ maxWidth: 800, margin: '0 auto', padding: '20px 16px' }}>
 
           {/* Cabeçalho */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
             <div>
-              <div style={{ fontWeight: 700, color: '#1a2e27', fontSize: '1rem' }}>Gerenciar acesso</div>
-              <div style={{ color: '#6b7f79', fontSize: '.82rem', marginTop: 2 }}>Crie e gerencie contas para a equipe.</div>
+              <div style={{ fontWeight: 700, color: 'var(--sa-text)', fontSize: '1rem' }}>Gerenciar acesso</div>
+              <div style={{ color: 'var(--sa-text-muted)', fontSize: '.82rem', marginTop: 2 }}>Crie e gerencie contas para a equipe.</div>
             </div>
             <button onClick={abrirNovo} style={{
               padding: '11px 20px', borderRadius: 10, border: 'none', cursor: 'pointer',
-              background: '#2a9d78', color: '#fff', fontWeight: 700, fontSize: '.9rem', fontFamily: 'inherit',
+              background: 'var(--sa-primary)', color: '#fff', fontWeight: 700, fontSize: '.9rem', fontFamily: 'inherit',
             }}>+ Novo usuário</button>
           </div>
 
@@ -143,7 +143,7 @@ export default function Usuarios() {
           {carregando ? (
             <div style={{ textAlign: 'center', padding: 40 }}><IonSpinner /></div>
           ) : usuarios.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: 48, color: '#6b7f79' }}>
+            <div style={{ textAlign: 'center', padding: 48, color: 'var(--sa-text-muted)' }}>
               <div style={{ fontSize: 40, marginBottom: 12 }}>👤</div>
               <p style={{ margin: 0 }}>Nenhum usuário encontrado.</p>
             </div>
@@ -151,31 +151,31 @@ export default function Usuarios() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {usuarios.map((u) => (
                 <div key={u.id} style={{
-                  background: '#fff', borderRadius: 14, padding: '16px 20px',
+                  background: 'var(--sa-surface)', borderRadius: 14, padding: '16px 20px',
                   boxShadow: '0 2px 12px rgba(0,0,0,.06)',
                   display: 'flex', alignItems: 'center', gap: 14,
                 }}>
                   <Avatar nome={u.nome} email={u.email} />
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontWeight: 700, color: '#1a2e27', fontSize: '.97rem' }}>
+                    <div style={{ fontWeight: 700, color: 'var(--sa-text)', fontSize: '.97rem' }}>
                       {u.nome || '—'}
                     </div>
-                    <div style={{ color: '#6b7f79', fontSize: '.82rem', marginTop: 2 }}>
+                    <div style={{ color: 'var(--sa-text-muted)', fontSize: '.82rem', marginTop: 2 }}>
                       ✉️ {u.email}{u.crmv ? ` · 🩺 ${u.crmv}` : ''}
                     </div>
-                    <div style={{ color: '#a0aea9', fontSize: '.75rem', marginTop: 2 }}>
+                    <div style={{ color: 'var(--sa-text-faint)', fontSize: '.75rem', marginTop: 2 }}>
                       Criado em {dataBR(u.criado)}
                       {u.ultimo_login && ` · Último acesso: ${dataBR(u.ultimo_login)}`}
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
                     <button onClick={() => abrirEditar(u)} style={{
-                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid #e4ece8',
-                      background: '#fff', color: '#1a2e27', cursor: 'pointer', fontSize: '.82rem', fontFamily: 'inherit',
+                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid var(--sa-border)',
+                      background: 'var(--sa-surface)', color: 'var(--sa-text)', cursor: 'pointer', fontSize: '.82rem', fontFamily: 'inherit',
                     }}>✏️ Editar</button>
                     <button onClick={() => excluir(u)} style={{
-                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid #fdecea',
-                      background: '#fdecea', color: '#d64545', cursor: 'pointer', fontSize: '.82rem', fontFamily: 'inherit',
+                      padding: '7px 14px', borderRadius: 8, border: '1.5px solid var(--sa-danger-soft)',
+                      background: 'var(--sa-danger-soft)', color: '#d64545', cursor: 'pointer', fontSize: '.82rem', fontFamily: 'inherit',
                     }}>🗑️</button>
                   </div>
                 </div>
@@ -186,8 +186,8 @@ export default function Usuarios() {
 
         {/* Modal */}
         <IonModal isOpen={aberto} onDidDismiss={() => setAberto(false)}>
-          <div style={{ height: '100%', background: '#f4f7f5', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ background: 'linear-gradient(135deg,#1c6f54,#2a9d78)', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ height: '100%', background: 'var(--sa-bg)', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ background: 'linear-gradient(135deg,var(--sa-primary-dark),var(--sa-primary))', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <h2 style={{ color: '#fff', margin: 0, fontSize: '1.1rem', fontWeight: 800 }}>
                 {editando ? '✏️ Editar usuário' : '👤 Novo usuário'}
               </h2>
@@ -195,7 +195,7 @@ export default function Usuarios() {
             </div>
             <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
               {erro && (
-                <div style={{ background: '#fdecea', color: '#d64545', borderRadius: 10, padding: '12px 16px', marginBottom: 16, fontSize: '.88rem', fontWeight: 600 }}>
+                <div style={{ background: 'var(--sa-danger-soft)', color: '#d64545', borderRadius: 10, padding: '12px 16px', marginBottom: 16, fontSize: '.88rem', fontWeight: 600 }}>
                   ⚠️ {erro}
                 </div>
               )}
@@ -207,7 +207,7 @@ export default function Usuarios() {
                   <input style={inputStyle} value={form.crmv} onChange={e => set('crmv', e.target.value)} placeholder="Ex.: CRMV-SP 12345 (opcional)" />
                 </Campo>
                 <Campo label="E-mail *">
-                  <input style={{ ...inputStyle, background: editando ? '#f4f7f5' : '#fff', color: editando ? '#6b7f79' : '#1a2e27' }}
+                  <input style={{ ...inputStyle, background: editando ? 'var(--sa-bg)' : 'var(--sa-surface)', color: editando ? 'var(--sa-text-muted)' : 'var(--sa-text)' }}
                     type="email" value={form.email} onChange={e => set('email', e.target.value)}
                     placeholder="email@exemplo.com" disabled={!!editando} />
                 </Campo>
@@ -215,12 +215,12 @@ export default function Usuarios() {
                   <input style={inputStyle} type="password" value={form.password} onChange={e => set('password', e.target.value)}
                     placeholder={editando ? 'Nova senha...' : 'Mínimo 6 caracteres'} />
                 </Campo>
-                <div style={{ background: '#e3f3eb', borderRadius: 10, padding: '12px 16px', marginBottom: 16, fontSize: '.82rem', color: '#1c6f54' }}>
+                <div style={{ background: 'var(--sa-primary-soft)', borderRadius: 10, padding: '12px 16px', marginBottom: 16, fontSize: '.82rem', color: 'var(--sa-primary-dark)' }}>
                   🔒 As senhas são armazenadas com segurança pelo Supabase. Nunca são salvas em texto puro.
                 </div>
                 <button type="submit" disabled={salvando} style={{
                   width: '100%', padding: '13px', borderRadius: 10, border: 'none',
-                  background: salvando ? '#7fcfb4' : '#2a9d78', color: '#fff',
+                  background: salvando ? '#80cfc6' : 'var(--sa-primary)', color: '#fff',
                   fontWeight: 700, fontSize: '1rem', cursor: salvando ? 'not-allowed' : 'pointer',
                   fontFamily: 'inherit',
                 }}>

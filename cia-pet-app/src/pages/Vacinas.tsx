@@ -30,14 +30,14 @@ const VACINAS_COMUNS = [
 type StatusKey = 'atrasada' | 'breve' | 'emdia' | 'sem';
 
 function statusDose(proxima: string | null): { label: string; cor: string; bg: string; key: StatusKey } {
-  if (!proxima) return { label: 'Sem próxima dose', cor: '#6b7f79', bg: '#f0f4f2', key: 'sem' };
+  if (!proxima) return { label: 'Sem próxima dose', cor: 'var(--sa-text-muted)', bg: 'var(--sa-surface-2)', key: 'sem' };
   const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
   const p = new Date(proxima + 'T00:00:00');
   const dias = Math.round((p.getTime() - hoje.getTime()) / 86400000);
-  if (dias < 0) return { label: `Atrasada há ${Math.abs(dias)}d`, cor: '#d64545', bg: '#fdecea', key: 'atrasada' };
-  if (dias === 0) return { label: 'Vence hoje', cor: '#d64545', bg: '#fdecea', key: 'atrasada' };
-  if (dias <= 30) return { label: `Em ${dias}d`, cor: '#e07b39', bg: '#fff8ec', key: 'breve' };
-  return { label: 'Em dia', cor: '#2a9d78', bg: '#e3f3eb', key: 'emdia' };
+  if (dias < 0) return { label: `Atrasada há ${Math.abs(dias)}d`, cor: '#d64545', bg: 'var(--sa-danger-soft)', key: 'atrasada' };
+  if (dias === 0) return { label: 'Vence hoje', cor: '#d64545', bg: 'var(--sa-danger-soft)', key: 'atrasada' };
+  if (dias <= 30) return { label: `Em ${dias}d`, cor: 'var(--sa-warning)', bg: 'var(--sa-warning-soft)', key: 'breve' };
+  return { label: 'Em dia', cor: 'var(--sa-primary)', bg: 'var(--sa-primary-soft)', key: 'emdia' };
 }
 
 function dataBR(iso: string | null): string {
@@ -54,14 +54,14 @@ function linkWhatsApp(tel: string | null): string | null {
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '11px 14px', borderRadius: 10,
-  border: '1.5px solid #e4ece8', fontSize: '.95rem', color: '#1a2e27',
-  background: '#fff', boxSizing: 'border-box', fontFamily: 'inherit', outline: 'none',
+  border: '1.5px solid var(--sa-border)', fontSize: '.95rem', color: 'var(--sa-text)',
+  background: 'var(--sa-surface)', boxSizing: 'border-box', fontFamily: 'inherit', outline: 'none',
 };
 
 function Campo({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <label style={{ display: 'block', fontSize: '.82rem', fontWeight: 600, color: '#1a2e27', marginBottom: 6 }}>{label}</label>
+      <label style={{ display: 'block', fontSize: '.82rem', fontWeight: 600, color: 'var(--sa-text)', marginBottom: 6 }}>{label}</label>
       {children}
     </div>
   );
@@ -147,23 +147,23 @@ export default function Vacinas() {
           <IonTitle>Vacinas</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent style={{ '--background': '#f4f7f5' }}>
+      <IonContent style={{ '--background': 'var(--sa-bg)' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', padding: '20px 16px' }}>
 
           {/* Resumo */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 20 }}>
             {[
-              { rotulo: 'Total', valor: vacinas.length, cor: '#1a2e27', emoji: '💉' },
+              { rotulo: 'Total', valor: vacinas.length, cor: 'var(--sa-text)', emoji: '💉' },
               { rotulo: 'Atrasadas', valor: totalAtrasadas, cor: '#d64545', emoji: '🔴' },
-              { rotulo: 'Em breve', valor: totalBreve, cor: '#e07b39', emoji: '🟡' },
+              { rotulo: 'Em breve', valor: totalBreve, cor: 'var(--sa-warning)', emoji: '🟡' },
             ].map((c) => (
               <div key={c.rotulo} style={{
-                background: '#fff', borderRadius: 14, padding: '16px',
+                background: 'var(--sa-surface)', borderRadius: 14, padding: '16px',
                 boxShadow: '0 2px 12px rgba(0,0,0,.06)', textAlign: 'center',
               }}>
                 <div style={{ fontSize: 20, marginBottom: 4 }}>{c.emoji}</div>
                 <div style={{ fontSize: '1.5rem', fontWeight: 800, color: c.cor, lineHeight: 1 }}>{c.valor}</div>
-                <div style={{ fontSize: '.74rem', color: '#6b7f79', marginTop: 4 }}>{c.rotulo}</div>
+                <div style={{ fontSize: '.74rem', color: 'var(--sa-text-muted)', marginTop: 4 }}>{c.rotulo}</div>
               </div>
             ))}
           </div>
@@ -178,7 +178,7 @@ export default function Vacinas() {
             />
             <button onClick={() => { setForm(VAZIO); setAberto(true); }} style={{
               padding: '11px 20px', borderRadius: 10, border: 'none', cursor: 'pointer',
-              background: '#2a9d78', color: '#fff', fontWeight: 700, fontSize: '.9rem',
+              background: 'var(--sa-primary)', color: '#fff', fontWeight: 700, fontSize: '.9rem',
               fontFamily: 'inherit', whiteSpace: 'nowrap',
             }}>
               + Nova vacina
@@ -192,9 +192,9 @@ export default function Vacinas() {
               return (
                 <button key={f.chave} onClick={() => setFiltro(f.chave)} style={{
                   padding: '7px 14px', borderRadius: 20, cursor: 'pointer',
-                  border: ativo ? '1.5px solid #2a9d78' : '1.5px solid #e4ece8',
-                  background: ativo ? '#2a9d78' : '#fff',
-                  color: ativo ? '#fff' : '#5f6f69', fontWeight: 600,
+                  border: ativo ? '1.5px solid var(--sa-primary)' : '1.5px solid var(--sa-border)',
+                  background: ativo ? 'var(--sa-primary)' : 'var(--sa-surface)',
+                  color: ativo ? '#fff' : 'var(--sa-text-muted)', fontWeight: 600,
                   fontSize: '.82rem', fontFamily: 'inherit',
                 }}>{f.rotulo}</button>
               );
@@ -205,7 +205,7 @@ export default function Vacinas() {
           {carregando ? (
             <div style={{ textAlign: 'center', padding: 40 }}><IonSpinner /></div>
           ) : filtradas.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: 48, color: '#6b7f79' }}>
+            <div style={{ textAlign: 'center', padding: 48, color: 'var(--sa-text-muted)' }}>
               <div style={{ fontSize: 40, marginBottom: 12 }}>💉</div>
               <p style={{ margin: 0 }}>Nenhuma vacina encontrada.</p>
             </div>
@@ -216,39 +216,39 @@ export default function Vacinas() {
                 const wpp = linkWhatsApp(v.tutor_telefone);
                 return (
                   <div key={v.id} style={{
-                    background: '#fff', borderRadius: 14, padding: '16px 20px',
+                    background: 'var(--sa-surface)', borderRadius: 14, padding: '16px 20px',
                     boxShadow: '0 2px 12px rgba(0,0,0,.06)',
                     display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap',
                     borderLeft: `4px solid ${st.cor}`,
                   }}>
                     {/* Avatar */}
                     <div style={{
-                      width: 48, height: 48, borderRadius: 12, background: '#e3f3eb',
+                      width: 48, height: 48, borderRadius: 12, background: 'var(--sa-primary-soft)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontSize: 24, flexShrink: 0,
                     }}>💉</div>
 
                     {/* Info */}
                     <div style={{ flex: 1, minWidth: 180 }}>
-                      <div style={{ fontWeight: 700, color: '#1a2e27', fontSize: '.97rem', marginBottom: 3 }}>
+                      <div style={{ fontWeight: 700, color: 'var(--sa-text)', fontSize: '.97rem', marginBottom: 3 }}>
                         {v.pet_nome}
                         <span style={{
                           marginLeft: 8, fontSize: '.72rem', fontWeight: 600,
-                          background: '#f0f4f2', color: '#5f6f69',
+                          background: 'var(--sa-surface-2)', color: 'var(--sa-text-muted)',
                           borderRadius: 6, padding: '2px 8px',
                         }}>{v.vacina}</span>
                       </div>
-                      <div style={{ color: '#6b7f79', fontSize: '.82rem' }}>
+                      <div style={{ color: 'var(--sa-text-muted)', fontSize: '.82rem' }}>
                         👤 {v.tutor_nome}
                         {wpp ? (
-                          <> · <a href={wpp} target="_blank" rel="noreferrer" style={{ color: '#2a9d78', textDecoration: 'none', fontWeight: 600 }}>
+                          <> · <a href={wpp} target="_blank" rel="noreferrer" style={{ color: 'var(--sa-primary)', textDecoration: 'none', fontWeight: 600 }}>
                             📱 {v.tutor_telefone}
                           </a></>
                         ) : v.tutor_telefone ? ` · 📱 ${v.tutor_telefone}` : ''}
                       </div>
-                      <div style={{ color: '#6b7f79', fontSize: '.78rem', marginTop: 2 }}>
-                        Última: <strong style={{ color: '#1a2e27' }}>{dataBR(v.data_aplicacao)}</strong>
-                        {' · '}Próxima: <strong style={{ color: '#1a2e27' }}>{dataBR(v.proxima_dose)}</strong>
+                      <div style={{ color: 'var(--sa-text-muted)', fontSize: '.78rem', marginTop: 2 }}>
+                        Última: <strong style={{ color: 'var(--sa-text)' }}>{dataBR(v.data_aplicacao)}</strong>
+                        {' · '}Próxima: <strong style={{ color: 'var(--sa-text)' }}>{dataBR(v.proxima_dose)}</strong>
                       </div>
                     </div>
 
@@ -262,13 +262,13 @@ export default function Vacinas() {
                     {/* Ações */}
                     <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
                       <button onClick={() => { setForm(v); setAberto(true); }} style={{
-                        padding: '7px 14px', borderRadius: 8, border: '1.5px solid #e4ece8',
-                        background: '#fff', color: '#1a2e27', cursor: 'pointer',
+                        padding: '7px 14px', borderRadius: 8, border: '1.5px solid var(--sa-border)',
+                        background: 'var(--sa-surface)', color: 'var(--sa-text)', cursor: 'pointer',
                         fontSize: '.82rem', fontFamily: 'inherit',
                       }}>✏️</button>
                       <button onClick={() => excluir(v)} style={{
-                        padding: '7px 14px', borderRadius: 8, border: '1.5px solid #fdecea',
-                        background: '#fdecea', color: '#d64545', cursor: 'pointer',
+                        padding: '7px 14px', borderRadius: 8, border: '1.5px solid var(--sa-danger-soft)',
+                        background: 'var(--sa-danger-soft)', color: '#d64545', cursor: 'pointer',
                         fontSize: '.82rem', fontFamily: 'inherit',
                       }}>🗑️</button>
                     </div>
@@ -281,8 +281,8 @@ export default function Vacinas() {
 
         {/* Modal */}
         <IonModal isOpen={aberto} onDidDismiss={() => setAberto(false)}>
-          <div style={{ height: '100%', background: '#f4f7f5', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ background: 'linear-gradient(135deg,#1c6f54,#2a9d78)', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ height: '100%', background: 'var(--sa-bg)', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ background: 'linear-gradient(135deg,var(--sa-primary-dark),var(--sa-primary))', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <h2 style={{ color: '#fff', margin: 0, fontSize: '1.1rem', fontWeight: 800 }}>
                 {form.id ? '✏️ Editar vacina' : '💉 Nova vacina'}
               </h2>
@@ -316,7 +316,7 @@ export default function Vacinas() {
                 </Campo>
                 <button type="submit" disabled={salvando} style={{
                   width: '100%', padding: '13px', borderRadius: 10, border: 'none',
-                  background: salvando ? '#7fcfb4' : '#2a9d78', color: '#fff',
+                  background: salvando ? '#80cfc6' : 'var(--sa-primary)', color: '#fff',
                   fontWeight: 700, fontSize: '1rem', cursor: salvando ? 'not-allowed' : 'pointer',
                   fontFamily: 'inherit', marginTop: 8,
                 }}>
