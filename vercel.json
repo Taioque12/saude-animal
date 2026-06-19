@@ -1,5 +1,6 @@
 {
   "buildCommand": "cd cia-pet-app && npm install && npm run build",
   "outputDirectory": "cia-pet-app/dist",
-  "framework": null
+  "framework": null,
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

@@ -1,5 +1,5 @@
 import { IonContent, IonMenu, IonMenuToggle } from '@ionic/react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 
 const paginas = [
@@ -13,6 +13,7 @@ const paginas = [
 
 export default function Menu() {
   const location = useLocation();
+  const history = useHistory();
 
   return (
     <IonMenu contentId="main" type="overlay">
@@ -44,7 +45,7 @@ export default function Menu() {
                 <IonMenuToggle key={p.url} autoHide={false}>
                   <a
                     href={p.url}
-                    onClick={e => { e.preventDefault(); window.location.href = p.url; }}
+                    onClick={e => { e.preventDefault(); history.push(p.url); }}
                     style={{
                       display: 'flex', alignItems: 'center', gap: 12,
                       padding: '11px 14px', borderRadius: 10, marginBottom: 4,
