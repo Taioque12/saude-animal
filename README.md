@@ -1,45 +1,111 @@
-# Cia Pet — Sistema da Clínica Veterinária
+# Saúde Animal — Clínica Veterinária
 
-Sistema da **Cia Pet** (clínica veterinária, banho e tosa — Lençóis Paulista/SP):
-site institucional, agendamento e painel interno (pacientes, prontuários,
-estoque e financeiro).
+Sistema completo de gestão para clínica veterinária e banho & tosa.
+
+**Produção:** https://saude-animal-site-lilac.vercel.app  
+**Backend:** Supabase (projeto `arwgvuevnguhertnbbex`)
+
+---
 
 ## Estrutura do repositório
 
-| Pasta / arquivo | O que é |
-|-----------------|---------|
-| `index.html`, `login.html`, `painel.html`, `css/`, `js/` | **Protótipo** original (HTML/CSS/JS puro) — referência visual e de fluxos |
-| `cia-pet-app/` | **Aplicação de produção** — React + Ionic + Capacitor + Supabase (TypeScript) |
-| `backend/` | Scripts SQL do banco de dados (Supabase): `schema.sql` e `seed.sql` |
-| `PLANEJAMENTO-BACKEND.md` | Plano técnico, modelo de dados e roteiro das etapas |
-| `LEIA-ME.txt` | Instruções de uso do protótipo |
-
-## Tecnologias (produção)
-
-- **Banco de dados / login:** Supabase (PostgreSQL)
-- **Frontend / app:** React 18 + Ionic 8 + Capacitor + TypeScript (Vite)
-
-## Como rodar a aplicação (`cia-pet-app`)
-
-```bash
-cd cia-pet-app
-npm install
-# copie .env.example para .env.local e preencha as chaves do Supabase
-npm run dev
+```
+saude-animal/
+├── landing/        # Site institucional + painel interno (Next.js 16)
+└── cia-pet-app/    # App mobile iOS/Android (Ionic + Capacitor)
 ```
 
-A aplicação abre em http://localhost:5173
+---
 
-## Banco de dados
+## Stack
 
-Os scripts em `backend/` criam toda a estrutura no Supabase:
-1. `schema.sql` — cria as tabelas e a segurança (RLS)
-2. `seed.sql` — popula dados de exemplo (opcional)
+| Camada | Tecnologia |
+|---|---|
+| Site & painel web | Next.js 16, Tailwind CSS, Framer Motion |
+| App mobile | Ionic + Capacitor |
+| Backend | Supabase (PostgreSQL + Auth + Storage) |
+| Deploy web | Vercel — CI/CD automático no push |
+| Deploy mobile | App Store + Google Play (futuro) |
 
-## Status do projeto
+---
 
-- [x] Backend (Supabase) — 8 tabelas + autenticação
-- [x] Painel: Dashboard, Agendamentos, Pacientes, Tutores
-- [x] Painel: Estoque, Financeiro, Usuários
-- [x] Site público + agendamento (com email + Google Agenda)
-- [x] Empacotamento como app (Capacitor — projeto Android gerado)
+## Painel interno — módulos
+
+- Dashboard com estatísticas em tempo real
+- Agendamentos (Clínica e Banho & Tosa)
+- Pacientes + Prontuários com receituário imprimível A4
+- Tutores
+- Vacinas com controle de próxima dose
+- Estoque com alerta de mínimo
+- Financeiro: caixa, notas fiscais e export Excel
+- Usuários: criação e remoção direto no painel
+
+---
+
+## Variáveis de ambiente
+
+Criar `landing/.env.local`:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://<projeto>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_...
+SUPABASE_SERVICE_ROLE_KEY=sb_secret_...
+```
+
+---
+
+## Rodando localmente
+
+```bash
+cd landing
+npm install
+npm run dev
+# Acesse http://localhost:3000
+```
+
+---
+
+## Roadmap
+
+### ✅ Fase 1 — Finalizar a base (90% pronto)
+- [ ] WhatsApp e CRMV reais do Dr. Ighor Morales
+- [ ] Seção de agendamento na landing page
+- [ ] Testes completos em produção
+
+### Fase 2 — Agendamento online
+- [ ] Formulário público → cria agendamento no painel
+- [ ] Lembrete automático via WhatsApp (Z-API / Twilio)
+- [ ] E-mail de confirmação para o tutor
+
+### Fase 3 — Portal do Tutor
+- [ ] Login para tutores (área separada do painel interno)
+- [ ] Visualização de prontuários, vacinas e agendamentos
+- [ ] Download de receituários em PDF
+
+### Fase 4 — Financeiro avançado
+- [ ] Gráficos mensais de receita e despesas
+- [ ] Integração Asaas / PagSeguro
+- [ ] Alertas de estoque mínimo por WhatsApp/e-mail
+
+### Fase 5 — App mobile
+- [ ] Conectar Ionic ao Supabase de produção
+- [ ] Compilar para iOS e Android com Capacitor
+- [ ] Publicar na App Store e Google Play
+
+### Fase 6 — SaaS multi-clínica
+- [ ] Isolamento por clínica via Row Level Security (Supabase)
+- [ ] Planos de assinatura com cobrança automática
+- [ ] Onboarding automático para novas clínicas
+
+---
+
+## Valor comercial estimado
+
+| Modelo | Valor |
+|---|---|
+| Projeto sob medida (uma clínica) | R$ 25.000 – R$ 60.000 |
+| SaaS mensal por clínica | R$ 150 – R$ 500/mês |
+
+---
+
+*Dr. Ighor Morales · Lençóis Paulista / SP*
