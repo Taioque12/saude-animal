@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ink-100 text-ink-900 antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-primary;
+  }
+
+  ::selection {
+    @apply bg-brand-primarySoft text-brand-primaryDark;
+  }
+}
+
+@layer utilities {
+  .text-balance  { text-wrap: balance; }
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent;
+  }
+  .gradient-bg {
+    background: linear-gradient(135deg, #13a89e 0%, #e8743b 100%);
+  }
+}
+
+/* Modal animations */
+@keyframes modal-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes modal-panel-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+.modal-overlay { animation: modal-overlay-in 150ms ease-out; }
+.modal-panel   { animation: modal-panel-in   180ms cubic-bezier(0.22, 1, 0.36, 1); }
+.page-enter    { animation: page-fade-in     200ms cubic-bezier(0.22, 1, 0.36, 1); }

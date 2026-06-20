@@ -4,6 +4,8 @@ node_modules/
 # ===== Build / saída de produção =====
 dist/
 build/
+.next/
+out/
 
 # ===== Variáveis de ambiente e segredos =====
 # (mantém os exemplos, ignora os arquivos reais com chaves)
