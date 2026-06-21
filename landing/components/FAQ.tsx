@@ -118,7 +118,7 @@ export default function FAQ() {
           <p className="font-bold text-ink-900 text-lg mb-1">Não encontrou sua resposta?</p>
           <p className="text-ink-500 text-sm mb-5">Nossa equipe está pronta para ajudar via WhatsApp.</p>
           <a
-            href="https://wa.me/5514999999999"
+            href="https://wa.me/551432647135"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-green-500 text-white font-bold text-sm hover:bg-green-600 active:scale-95 transition-all"
