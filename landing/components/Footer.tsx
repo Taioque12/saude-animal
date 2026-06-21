@@ -40,7 +40,6 @@ export default function Footer() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <a
-              id="agendamento"
               href="tel:+551432647135"
               className="px-6 py-3 rounded-2xl bg-white text-brand-primaryDark font-bold text-sm hover:bg-brand-primarySoft active:scale-95 transition-all"
             >
