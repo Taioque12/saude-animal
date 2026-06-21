@@ -1,10 +1,11 @@
-import Navbar      from '@/components/Navbar'
-import Hero        from '@/components/Hero'
-import Features    from '@/components/Features'
-import Sobre       from '@/components/Sobre'
-import Identidade  from '@/components/Identidade'
+import Navbar       from '@/components/Navbar'
+import Hero         from '@/components/Hero'
+import Features     from '@/components/Features'
+import Sobre        from '@/components/Sobre'
+import Identidade   from '@/components/Identidade'
 import AreaRestrita from '@/components/AreaRestrita'
-import Footer      from '@/components/Footer'
+import Agendamento  from '@/components/Agendamento'
+import Footer       from '@/components/Footer'
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <Sobre />
         <Identidade />
         <AreaRestrita />
+        <Agendamento />
       </main>
       <Footer />
     </>

@@ -83,7 +83,7 @@ export default function Hero() {
               Agendar agora
             </a>
             <a
-              href="tel:+5514999999999"
+              href="tel:+551432647135"
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl border-2 border-ink-200 text-ink-700 font-semibold text-base hover:border-brand-primary hover:text-brand-primary active:scale-95 transition-all bg-white/70"
             >
               <Phone size={18} />

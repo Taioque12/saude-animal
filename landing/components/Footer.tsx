@@ -40,14 +40,13 @@ export default function Footer() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <a
-              id="agendamento"
-              href="tel:+5514999999999"
+              href="tel:+551432647135"
               className="px-6 py-3 rounded-2xl bg-white text-brand-primaryDark font-bold text-sm hover:bg-brand-primarySoft active:scale-95 transition-all"
             >
               Ligar agora
             </a>
             <a
-              href="https://wa.me/5514999999999"
+              href="https://wa.me/551432647135"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-2xl bg-white/20 border border-white/40 text-white font-bold text-sm hover:bg-white/30 active:scale-95 transition-all"
